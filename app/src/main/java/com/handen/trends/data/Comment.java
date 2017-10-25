@@ -12,5 +12,7 @@ public class Comment {
     public Comment(String title, int id) {
         this.title = title;
         this.id = id;
+
+
     }
 }
