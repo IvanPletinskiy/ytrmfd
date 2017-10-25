@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity implements SignInFragment.S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         fragmentHost = (FrameLayout) findViewById(R.id.fragment_host_login_activity);
-
         displayFragment(RegistrationFragment.newInstance(), REGISTRATION_FRAGMENT_TAG);
 
     }
