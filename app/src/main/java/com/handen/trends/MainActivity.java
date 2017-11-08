@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
         tbl_pages.setupWithViewPager(vp_pages);
 
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_goto_write_post_activity);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
