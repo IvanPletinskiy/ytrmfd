@@ -1,11 +1,13 @@
 package com.handen.trends;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.handen.trends.data.Post;
@@ -29,6 +31,7 @@ public class PostFragment extends Fragment {
     private TextView postTextTextView;
     private TextView likesTextView;
     private TextView viewTextView;
+    private LinearLayout userDescriptionLinearLayout;
 
 
     public PostFragment() {
@@ -71,6 +74,15 @@ public class PostFragment extends Fragment {
         likesTextView.setText(Long.toString(post.getLikes()));
         viewTextView = (TextView) view.findViewById(R.id.text_view_views);
         viewTextView.setText(Long.toString(post.getViews()));
+
+        userDescriptionLinearLayout = (LinearLayout) view.findViewById(R.id.linear_layout_user_description);
+        userDescriptionLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

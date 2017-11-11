@@ -1,56 +1,36 @@
 package com.handen.trends;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
-import com.github.mmin18.widget.RealtimeBlurView;
-import com.handen.trends.appbarspring.src.main.java.android.support.design.widget.AppBarLayoutSpringBehavior;
-import com.handen.trends.appbarspring.src.main.java.android.support.design.widget.TabScrimHelper;
 
 import static com.handen.trends.ClientInterface.getPosts;
 import static com.handen.trends.ClientInterface.getSubscribedPosts;
 
+
 public class UserProfileActivity extends AppCompatActivity {
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        //TODO 11.11.2017 сделать как в quiz, разобраться как правильно
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activity_user_profile);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-
-        final RealtimeBlurView realtimeBlurView = (RealtimeBlurView) findViewById(R.id.real_time_blur_view);
-
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-        AppBarLayoutSpringBehavior springBehavior = (AppBarLayoutSpringBehavior) ((CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams()).getBehavior();
-        springBehavior.setSpringOffsetCallback(new AppBarLayoutSpringBehavior.SpringOffsetCallback() {
-            @Override
-            public void springCallback(int offset) {
-                int radius = 20 * (240 - offset > 0 ? 240 - offset : 0) / 240;
-                realtimeBlurView.setBlurRadius(radius);
-            }
-        });
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.tabs_viewpager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager_activity_user_profile);
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
-        TabScrimHelper tabScrimHelper = new TabScrimHelper(tabLayout, collapsingToolbarLayout);
-        appBarLayout.addOnOffsetChangedListener(tabScrimHelper);
+
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout_activity_user_profile);
+        tabLayout.setupWithViewPager(viewPager);
+
     }
 
     class TabAdapter extends FragmentPagerAdapter {
@@ -69,12 +49,13 @@ public class UserProfileActivity extends AppCompatActivity {
                 case 2:
                     return TilesFragment.newInstance(getPosts(2));
             }
+
             return null;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
 
@@ -84,9 +65,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 //
                 //Your tab titles
                 //
-                case 0:return "Мир";    //TODO 08.11.2017 Перевести в строковые ресурсы
+                case 0:return "Мир";
                 case 1:return "Подписки";
-
                 default: return null;
             }
 

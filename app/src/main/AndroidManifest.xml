@@ -26,7 +26,13 @@
         </activity>
         <activity android:name=".PostActivity" />
         <activity android:name=".WritePostActivity" />
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+
     </application>
 
 </manifest>

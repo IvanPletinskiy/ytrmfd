@@ -32,8 +32,7 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         ActionBar actionBar = getActionBar();
-        if(actionBar != null)
-        {
+        if(actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(false); //не показываем иконку приложения
             actionBar.setDisplayShowTitleEnabled(false); // и заголовок тоже прячем
             actionBar.setDisplayShowCustomEnabled(true);
@@ -57,6 +56,9 @@ public class PostActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
 
         postPosition = getIntent().getIntExtra(ARGS_POST_POSITION, 0);
         posts = (ArrayList<Post>) getIntent().getSerializableExtra(ARGS_POSTS);
