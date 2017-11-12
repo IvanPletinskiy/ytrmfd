@@ -14,6 +14,7 @@ import com.handen.trends.data.Post;
 import com.handen.trends.userActivity.UserProfileActivity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -70,7 +71,8 @@ public class PostFragment extends Fragment {
         nicknameTextView.setText(post.getUserNickname());
 
         dateTextView = (TextView) view.findViewById(R.id._text_view_date);
-        dateTextView.setText("32 окт 13:13");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
+        dateTextView.setText(dateFormat.format(post.getCreationDate()));
         postTextTextView = (TextView) view.findViewById(R.id.text_view_post_text);
         postTextTextView.setText(post.getText());
 

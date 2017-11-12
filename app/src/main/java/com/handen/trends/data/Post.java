@@ -1,5 +1,7 @@
 package com.handen.trends.data;
 
+import com.handen.trends.ClientInterface;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,7 +62,7 @@ public class Post implements Serializable {
     }
 
     public String getUserNickname() {
-        return "Handen";
+        return ClientInterface.getUser(userId).getNickName();
     }
 
     public String getText() {
