@@ -77,11 +77,11 @@ public class TilesFragment extends Fragment {
                                     */
 
                                 default:
-                                    return new TilesLayoutManager.SpanInfo(1, 1);
+                                    return new TilesLayoutManager.SpanInfo(2, 2);
                             }
                         }
                     },
-                    4, // number of columns
+                    8, // number of columns
                     1f // default size of item
             );
 

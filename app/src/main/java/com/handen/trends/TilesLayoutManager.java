@@ -193,6 +193,7 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+
         if(getChildCount() == 0 || dy == 0)
             return 0;
 
@@ -200,6 +201,7 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
         int top = getDecoratedTop(getChildAt(0));
 
         if(dy < 0) {
+
             //Scrolling content down
 
             //at top of content
@@ -217,6 +219,7 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
                     layoutRow(newRow, startOffset, recycler, state);
                 }
             }
+
             int firstPositionOfLastRow = getFirstPositionInSpannedRow(lastVisibleRow);
             Log.d("firstPositionOfLastRow",Integer.toString(firstPositionOfLastRow));
             Log.d("firstVisiblePosition",Integer.toString(firstVisiblePosition));
@@ -225,8 +228,6 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
 
             if(child != null) {
  //               System.err.println("228");
-
-
                 int lastRowTop = getDecoratedTop(child);
                 if (lastRowTop - scrolled > getHeight()) { // last spanned row scrolled out
                     recycleRow(lastVisibleRow, recycler, state);
@@ -235,6 +236,7 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
         }
         //scrolling content up
         else {
+
             int bottom = getDecoratedBottom(getChildAt(getChildCount() - 1));
             if (lastVisiblePosition == getItemCount() - 1) { // is at end of content
                 int scrollRange = Math.max(bottom - getHeight() + getPaddingBottom(), 0);
@@ -242,21 +244,28 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
             } else {
                 scrolled = dy;
             }
+
             if ((bottom - scrolled) < getHeight()) { // new row scrolled in
+
                 int nextRow = lastVisibleRow + 1;
                 if (nextRow < getSpannedRowCount()) {
+
                     int startOffset = top - (firstVisibleRow * cellHeight);
                     layoutRow(nextRow, startOffset, recycler, state);
                 }
             }
             int lastPositionInRow = getLastPositionInSpannedRow(firstVisibleRow, state);
+
             int bottomOfFirstRow =
                     getDecoratedBottom(getChildAt(lastPositionInRow - firstVisiblePosition));
+
             if (bottomOfFirstRow - scrolled < 0) { // first spanned row scrolled out
                 recycleRow(firstVisibleRow, recycler, state);
+
             }
         }
         offsetChildrenVertical(-scrolled);
+
         return scrolled;
     }
 
@@ -433,7 +442,7 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
 //            return 0;
 //        }
 
-//        System.err.println("Position: " + Integer.toString(position) + " cells.size() " + Integer.toString(cells.size()));
+        System.err.println("Position: " + Integer.toString(position) + " cells.size() " + Integer.toString(cells.size()));
 
 
         int integer = cells.get(position).row;
@@ -529,6 +538,8 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
      */
     private void recycleRow(
             int rowIndex, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        System.err.println("row index" + rowIndex);
+        System.err.println("getFirstPositionInSpannedRow" + getFirstPositionInSpannedRow(rowIndex));
         int firstPositionInRow = getFirstPositionInSpannedRow(rowIndex);
         int lastPositionInRow = getLastPositionInSpannedRow(rowIndex, state);
         int toRemove = lastPositionInRow;
@@ -542,6 +553,7 @@ public class TilesLayoutManager extends RecyclerView.LayoutManager {
             firstVisibleRow = getRowIndex(firstVisiblePosition);
         }
         if (rowIndex == lastVisibleRow) {
+
             lastVisiblePosition = firstPositionInRow - 1;
             lastVisibleRow = getRowIndex(lastVisiblePosition);
         }

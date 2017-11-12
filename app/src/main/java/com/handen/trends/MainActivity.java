@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toobar_activity_main);
         setSupportActionBar(toolbar);
 
         ViewPager vp_pages= (ViewPager) findViewById(R.id.viewPager);
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
 
         TabLayout tbl_pages= (TabLayout) findViewById(R.id.tbl_pages);
         tbl_pages.setupWithViewPager(vp_pages);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_goto_write_post_activity);
