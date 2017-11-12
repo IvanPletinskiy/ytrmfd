@@ -9,8 +9,19 @@
     android:fitsSystemWindows="true"
     >
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout_activity_user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:layout_gravity="bottom"
+
+        app:layout_anchor="@+id/appbar_layout_activity_user_profile"
+        app:layout_anchorGravity="bottom"
+        />
+
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/appbar_layout_activity_user_profile"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -26,6 +37,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
+            app:title="HANDEN"
+            app:expandedTitleGravity="center_horizontal|bottom"
             >
 
             <RelativeLayout
@@ -68,14 +81,6 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout_activity_user_profile"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:layout_gravity="bottom"
-                />
-
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -84,6 +89,7 @@
             android:id="@+id/view_pager_activity_user_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </android.support.v4.view.ViewPager>
 
@@ -92,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:src="@drawable/ic_menu_share"
-        app:layout_anchor="@id/main.appbar"
+        app:layout_anchor="@id/appbar_layout_activity_user_profile"
         app:layout_anchorGravity="bottom|right|end"
         />
 </android.support.design.widget.CoordinatorLayout>
