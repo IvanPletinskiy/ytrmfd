@@ -1,4 +1,4 @@
-package com.handen.trends;
+package com.handen.trends.userActivity;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.handen.trends.R;
+import com.handen.trends.TilesFragment;
 import com.handen.trends.data.Post;
 import com.handen.trends.data.User;
 
@@ -88,7 +90,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 case 0:
                     return TilesFragment.newInstance(userPosts);
                 case 1:
-                    return UserAboutFragment.newInstance(user.getRegistrationDate(),
+                    return UserAboutFragment.newInstance(user.getDescription(), user.getRegistrationDate(),
                             0, userPosts.size(), getTotalLikes());
 
             }

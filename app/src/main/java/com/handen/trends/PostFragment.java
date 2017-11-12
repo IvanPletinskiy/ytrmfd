@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.handen.trends.data.Post;
+import com.handen.trends.userActivity.UserProfileActivity;
 
 import java.io.Serializable;
 

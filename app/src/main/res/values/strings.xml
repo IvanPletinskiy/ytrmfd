@@ -9,6 +9,7 @@
     <string name="ifYouExit">Если вы выйдете, этот тренд будет удалён</string>
     <string name="cancel">Отмена</string>
     <string name="exit">Выйти</string>
+    <string name="userDescription">Описание: </string>
     <string name="registrationDate">Дата регистрации: </string>
     <string name="totalSubscribers">Всего подписчиков: </string>
     <string name="totalPosts">Всего постов: </string>

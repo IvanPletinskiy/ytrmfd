@@ -1,4 +1,4 @@
-package com.handen.trends;
+package com.handen.trends.userActivity;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.handen.trends.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,16 +21,19 @@ import java.util.Date;
 
 public class UserAboutFragment extends Fragment {
 
+    private static final String ARGS_DESCRIPTION = "description";
     private static final String ARGS_DATE = "date";
     private static final String ARGS_SUBSCRIBERS = "subscribers";
     private static final String ARGS_POSTS = "posts";
     private static final String ARGS_LIKES = "likes";
 
+    private TextView userDescriptionTextView;
     private TextView registrationDateTextView;
     private TextView totalSubscribersTextView;
     private TextView totalPostsTextView;
     private TextView totalLikesTextView;
 
+    private String userDescription;
     private Date registrationDate;
     private long totalSubscribers;
     private long totalPosts;
@@ -41,10 +46,11 @@ public class UserAboutFragment extends Fragment {
     }
 
 
-    public static UserAboutFragment newInstance(Date registrationDate, long totalSubscribers,
+    public static UserAboutFragment newInstance(String userDescription, Date registrationDate, long totalSubscribers,
                                                 long totalPosts, long totalLikes) {
         UserAboutFragment fragment = new UserAboutFragment();
         Bundle args = new Bundle();
+        args.putString(ARGS_DESCRIPTION, userDescription);
         args.putSerializable(ARGS_DATE, registrationDate);
         args.putLong(ARGS_SUBSCRIBERS, totalSubscribers);
         args.putLong(ARGS_POSTS, totalPosts);
@@ -60,6 +66,7 @@ public class UserAboutFragment extends Fragment {
         if (getArguments() != null) {
             Bundle args = getArguments();
 
+            userDescription = args.getString(ARGS_DESCRIPTION);
             registrationDate = (Date) args.getSerializable(ARGS_DATE);
             totalSubscribers = args.getLong(ARGS_SUBSCRIBERS, -1);
             totalPosts = args.getLong(ARGS_POSTS, -1);
@@ -72,6 +79,9 @@ public class UserAboutFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_user_about, container, false);
+
+        userDescriptionTextView = (TextView) view.findViewById(R.id.text_view_user_description);
+        userDescriptionTextView.setText(userDescription);
 
         registrationDateTextView = (TextView) view.findViewById(R.id.text_view_registration_date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
