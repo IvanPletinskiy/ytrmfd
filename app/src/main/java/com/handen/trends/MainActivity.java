@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toobar_activity_user_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toobar_activity_main);
         setSupportActionBar(toolbar);
 
         ViewPager vp_pages= (ViewPager) findViewById(R.id.viewPager);

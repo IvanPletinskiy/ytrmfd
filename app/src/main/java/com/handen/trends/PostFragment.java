@@ -23,8 +23,10 @@ import java.io.Serializable;
 public class PostFragment extends Fragment {
 
     private static final String ARGS_POST = "post";
+    private static final String ARGS_USER_ID = "userId";
 
     private Post post;
+    private Long userId;
 
     private TextView nicknameTextView;
     private TextView dateTextView;
@@ -53,6 +55,7 @@ public class PostFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             post = (Post) getArguments().getSerializable(ARGS_POST);
+            userId = post.getUserId();
         }
     }
 
@@ -80,6 +83,7 @@ public class PostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                intent.putExtra(ARGS_USER_ID, userId);
                 startActivity(intent);
             }
         });

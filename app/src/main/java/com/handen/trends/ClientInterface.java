@@ -1,6 +1,5 @@
 package com.handen.trends;
 
-import com.handen.trends.data.AccountInfo;
 import com.handen.trends.data.Category;
 import com.handen.trends.data.Comment;
 import com.handen.trends.data.Post;
@@ -95,9 +94,9 @@ public class ClientInterface {
         }
         else {
             for (Post post : availablePosts) {
-                int userId = post.getUserId();
+                long userId = post.getUserId();
 
-                User user = availableUsers.get(userId - 1); //TODO костыль
+                User user = availableUsers.get((int) (userId - 1)); //TODO происходит преобразование long в int
 
                 if (user.getRegion() == region)
                     ret.add(post);
@@ -120,11 +119,9 @@ public class ClientInterface {
                 ret.add(post);
         }
 
-
         return ret;
     }
     static public void likePost(long postId) {
-
 
     }
     static public void viewPost(long postId) {
@@ -143,8 +140,6 @@ public class ClientInterface {
     }
 
     static public void writeComment(long postId, Comment comment) {
-
-
 
     }
     static public void likeComment(long commentId) {
@@ -168,9 +163,23 @@ public class ClientInterface {
         return "OK";
     }
 
-    static public AccountInfo getAccountInfo(int userId) {
+/*    static public UserInformation getUserInformation(long userId) {
 
-        return new AccountInfo();
+        for (int i = 0; i < availableUsers.size(); i++) {
+            User user = availableUsers.get(i);
+            if(user.getId() == userId);
+                return user.get;
+        }
     }
+    */
+
+    static public User getUser(long userId) {
+        for (User user : availableUsers) {
+            if(user.getId() == userId)
+                return user;
+        }
+        return null;
+    }
+
 
 }

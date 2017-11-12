@@ -23,4 +23,16 @@ public class User {
     public int getRegion() {
         return region;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
 }

@@ -1,20 +1,37 @@
 package com.handen.trends;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 
-import static com.handen.trends.ClientInterface.getPosts;
-import static com.handen.trends.ClientInterface.getSubscribedPosts;
+import com.handen.trends.data.Post;
+import com.handen.trends.data.User;
+
+import java.util.ArrayList;
+
+import static com.handen.trends.ClientInterface.getUser;
+import static com.handen.trends.ClientInterface.getUserPosts;
 
 
 public class UserProfileActivity extends AppCompatActivity {
+
+    private static final String ARGS_USER_ID = "userId";
+
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ImageButton backImageButton;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private long userId;
+    private ArrayList<Post> userPosts = new ArrayList<>();
+    private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +42,38 @@ public class UserProfileActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        userId = getIntent().getLongExtra(ARGS_USER_ID, -1);
+        userPosts = getUserPosts(userId);
+        user = getUser(userId);
+
         viewPager = (ViewPager) findViewById(R.id.view_pager_activity_user_profile);
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_activity_user_profile);
         tabLayout.setupWithViewPager(viewPager);
 
+        backImageButton = (ImageButton) findViewById(R.id.image_button_arrow_back);
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(
+                R.id.collapsing_toolbar_activity_user_profile);
+        collapsingToolbarLayout.setTitle(user.getNickName());
+
+    }
+
+    private long getTotalLikes() {
+        long totalLikes = 0;
+
+        for(Post post : userPosts) {
+            totalLikes += post.getLikes();
+        }
+
+        return totalLikes;
     }
 
     class TabAdapter extends FragmentPagerAdapter {
@@ -43,11 +86,11 @@ public class UserProfileActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0:
-                    return TilesFragment.newInstance(getPosts(0));
+                    return TilesFragment.newInstance(userPosts);
                 case 1:
-                    return TilesFragment.newInstance(getSubscribedPosts());
-                case 2:
-                    return TilesFragment.newInstance(getPosts(2));
+                    return UserAboutFragment.newInstance(user.getRegistrationDate(),
+                            0, userPosts.size(), getTotalLikes());
+
             }
 
             return null;
@@ -62,11 +105,9 @@ public class UserProfileActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position){
-                //
-                //Your tab titles
-                //
-                case 0:return "Мир";
-                case 1:return "Подписки";
+                //TODO 12.11.2017 replace with string resources
+                case 0:return "Тренды";
+                case 1:return "О пользователе";
                 default: return null;
             }
 

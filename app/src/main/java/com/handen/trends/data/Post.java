@@ -10,8 +10,8 @@ import java.util.Date;
 
 public class Post implements Serializable {
 
-    private int id;
-    private int userId;
+    private long id;
+    private long userId;
     private String title;
     private ArrayList<Category> categories;
     private String text;
@@ -22,7 +22,7 @@ public class Post implements Serializable {
     private boolean is24hours;
 
 
-    public Post(String title, ArrayList<Category> categories, String text, ArrayList<String> tags, boolean is24hours, int id, int userId, long views, long likes) {
+    public Post(String title, ArrayList<Category> categories, String text, ArrayList<String> tags, boolean is24hours, long id, long userId, long views, long likes) {
         this.title = title;
         this.categories = categories;
         this.text = text;
@@ -67,7 +67,7 @@ public class Post implements Serializable {
         return text;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 }
