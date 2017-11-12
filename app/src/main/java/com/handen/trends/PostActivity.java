@@ -57,9 +57,6 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         postPosition = getIntent().getIntExtra(ARGS_POST_POSITION, 0);
         posts = (ArrayList<Post>) getIntent().getSerializableExtra(ARGS_POSTS);
 

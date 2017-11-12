@@ -8,10 +8,11 @@ import java.util.Date;
 
 public class User {
 
-    int region;
-    long id;
-    String nickName;
-    Date registrationDate;
+    private int region;
+    private long id;
+    private String nickName;
+    private Date registrationDate;
+    private String description;
 
     public User(int region, long id, String nickName, Date registrationDate) {
         this.region = region;
@@ -34,5 +35,13 @@ public class User {
 
     public Date getRegistrationDate() {
         return registrationDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

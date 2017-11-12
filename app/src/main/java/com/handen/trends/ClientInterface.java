@@ -77,8 +77,13 @@ public class ClientInterface {
 
         availableUsers = new ArrayList<>();
         availableUsers.add(new User(1, 1, "Handen", new Date()));
+        availableUsers.get(0).setDescription("Это описание #1");
+
         availableUsers.add(new User(2, 2, "Handen2", new Date()));
+        availableUsers.get(1).setDescription("Это описание #2");
+
         availableUsers.add(new User(3, 3, "Handen3", new Date()));
+        availableUsers.get(2).setDescription("Это описание #3");
 
 
     }
