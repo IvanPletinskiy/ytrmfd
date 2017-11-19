@@ -104,19 +104,30 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.main_nav) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else
+            if (id == R.id.liked_nav) {
 
-        } else if (id == R.id.nav_slideshow) {
+            } else
+                if (id == R.id.myProfile_nav) {
 
-        } else if (id == R.id.nav_manage) {
+                } else
+                    if (id == R.id.shop_nav) {
 
-        } else if (id == R.id.nav_share) {
+                    } else
+                        if(id == R.id.bugReport_nav) {
 
-        } else if (id == R.id.nav_send) {
+                        } else
+                            if(id == R.id.logout_nav) {
 
-        }
+                            } else
+                               if (id == R.id.nav_share) {
+
+                               } else
+                                    if (id == R.id.nav_send) {
+
+                                    }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -162,6 +173,7 @@ public class MainActivity extends AppCompatActivity
                 //
                 //Your tab titles
                 //
+                //TODO replace with string resources
                 case 0:return "Мир";
                 case 1:return "Подписки";
                 case 2: return "Беларусь";

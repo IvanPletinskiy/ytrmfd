@@ -1,6 +1,7 @@
 package com.handen.trends;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,8 @@ public class PostFragment extends Fragment {
     private TextView viewTextView;
     private LinearLayout userDescriptionLinearLayout;
 
+    SetPostTitleInterface mListener;
+
 
     public PostFragment() {
         // Required empty public constructor
@@ -61,11 +64,14 @@ public class PostFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_post, container, false);
+
+        mListener.setTitle(post.getTitle());
 
         nicknameTextView = (TextView) view.findViewById(R.id.text_view_nickname);
         nicknameTextView.setText(post.getUserNickname());
@@ -92,6 +98,20 @@ public class PostFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        if (context instanceof SetPostTitleInterface) {
+            mListener = (SetPostTitleInterface) context;
+        }
+    }
+
+    public interface SetPostTitleInterface {
+        void setTitle(String postTitle);
+
     }
 
 }

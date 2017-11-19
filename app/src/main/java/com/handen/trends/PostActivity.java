@@ -15,7 +15,7 @@ import com.handen.trends.data.Post;
 
 import java.util.ArrayList;
 
-public class PostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity implements PostFragment.SetPostTitleInterface{
 
     public static final String ARGS_POSTS = "posts";
     public static final String ARGS_POST_POSITION = "position";
@@ -25,6 +25,7 @@ public class PostActivity extends AppCompatActivity {
     private TextView mPostTitleTextView;
     private ArrayList<Post> posts;
     private int postPosition;
+    private FragmentStatePagerAdapter fragmentStatePagerAdapter;
 
     @Override
     public void onCreate (Bundle savedInstanceState){
@@ -58,18 +59,26 @@ public class PostActivity extends AppCompatActivity {
         });
 
 
-
         postPosition = getIntent().getIntExtra(ARGS_POST_POSITION, 0);
         posts = (ArrayList<Post>) getIntent().getSerializableExtra(ARGS_POSTS);
 
+
+        fragmentStatePagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public int getCount() {
+                return 0;
+            }
+        };
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-
-                mPostTitleTextView.setText(posts.get(position).getTitle());
-
                 return PostFragment.newInstance(posts.get(position));
             }
 
@@ -83,4 +92,8 @@ public class PostActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void setTitle(String postTitle) {
+        mPostTitleTextView.setText(postTitle);
+    }
 }

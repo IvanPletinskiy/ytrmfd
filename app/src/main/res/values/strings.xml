@@ -15,6 +15,16 @@
     <string name="totalPosts">Всего постов: </string>
     <string name="totalLikes">Всего лайков: </string>
 
+    <!-- Navigation Drawer -->
+    <string name="main">Главная</string>
+    <string name="liked">Понравившееся</string>
+    <string name="myProfile">Мой профиль</string>
+    <string name="settings">Настройки</string>
+    <string name="shop">Магазин</string>
+    <string name="bugReport">Отчёт об ошибке</string>
+    <string name="logout">Выйти</string>
+        
+        
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

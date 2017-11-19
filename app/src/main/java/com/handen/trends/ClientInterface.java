@@ -163,10 +163,18 @@ public class ClientInterface {
     }
     static public void writePost(String title, Category category, String text, ArrayList<String> tags, boolean is24hours ) {
 
+
     }
     static public String subscribe(int userId) {
         return "OK";
     }
+
+    static public ArrayList<Category> getCategories() {
+        return null;
+    }
+
+
+
 
 /*    static public UserInformation getUserInformation(long userId) {
 
@@ -185,6 +193,4 @@ public class ClientInterface {
         }
         return null;
     }
-
-
 }

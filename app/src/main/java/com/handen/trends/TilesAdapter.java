@@ -22,16 +22,13 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     private TilesFragment.OnTileClickListener mListener;
 
 
-    public TilesAdapter(ArrayList<Post> posts, TilesFragment.OnTileClickListener listener)
-    {
+    public TilesAdapter(ArrayList<Post> posts, TilesFragment.OnTileClickListener listener) {
         this.posts = posts;
         this.mListener = listener;
     }
 
-
     @Override
     public TilesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tile, parent, false);
 
         return new ViewHolder(view);
@@ -64,9 +61,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         private final View mView;
-
         private Post post;
         private Button button;
     //    public final TextView noteTextView;
