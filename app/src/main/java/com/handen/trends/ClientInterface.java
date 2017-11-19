@@ -18,6 +18,8 @@ public class ClientInterface {
     public static ArrayList<Post> availablePosts;
     public static ArrayList<User> availableUsers;
     public static ArrayList<Comment> availableComments;
+    public static int lastPostId = 49;
+    public static int currentUserId = 0;
 
     static {
         availablePosts = new ArrayList<>();
@@ -84,6 +86,8 @@ public class ClientInterface {
 
         availableUsers.add(new User(3, 3, "Handen3", new Date()));
         availableUsers.get(2).setDescription("Это описание #3");
+        availableUsers.add(new User(2, 0, "God", new Date()));
+        availableUsers.get(2).setDescription("Одмен");
 
 
     }
@@ -101,9 +105,9 @@ public class ClientInterface {
             for (Post post : availablePosts) {
                 long userId = post.getUserId();
 
-                User user = availableUsers.get((int) (userId - 1)); //TODO происходит преобразование long в int
+             //   User user = availableUsers.get((int) (userId)); //TODO происходит преобразование long в int
 
-                if (user.getRegion() == region)
+                if (getUser(userId).getRegion() == region)
                     ret.add(post);
             }
 
@@ -162,8 +166,7 @@ public class ClientInterface {
 
     }
     static public void writePost(String title, Category category, String text, ArrayList<String> tags, boolean is24hours ) {
-
-
+        availablePosts.add(new Post(title, category, text, tags, is24hours, ++lastPostId, currentUserId));
     }
     static public String subscribe(int userId) {
         return "OK";
@@ -172,8 +175,6 @@ public class ClientInterface {
     static public ArrayList<Category> getCategories() {
         return null;
     }
-
-
 
 
 /*    static public UserInformation getUserInformation(long userId) {
