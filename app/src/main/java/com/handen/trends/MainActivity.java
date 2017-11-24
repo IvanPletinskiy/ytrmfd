@@ -79,13 +79,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawerLayout.setDrawerListener(toggle);
-//        toggle.syncState();
-
-//        navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -217,13 +210,13 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         if(isMyProfile) {
             collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_main_activity);
             collapsingToolbarLayout.setTitle("HANDEN RULEZ");
         }
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
