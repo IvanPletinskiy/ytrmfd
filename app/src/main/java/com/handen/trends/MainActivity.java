@@ -7,8 +7,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,8 +24,10 @@ import com.handen.trends.fragments.MyProfileFragment;
 
 import java.util.ArrayList;
 
+import static com.handen.trends.ClientInterface.currentUserId;
 import static com.handen.trends.ClientInterface.getPosts;
 import static com.handen.trends.ClientInterface.getSubscribedPosts;
+import static com.handen.trends.ClientInterface.getUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -56,7 +56,17 @@ public class MainActivity extends AppCompatActivity
         inflateHostCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.inflate_host_coordinator_layout);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        homeFragment = HomeFragment.newInstance();
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(TilesFragment.newInstance(getPosts(0)));
+        fragments.add(TilesFragment.newInstance(getSubscribedPosts()));
+        fragments.add(TilesFragment.newInstance(getPosts(2)));
+
+        ArrayList<String> titles = new ArrayList<>();
+        titles.add(getString(R.string.world));
+        titles.add(getString(R.string.subscribtions));
+        titles.add(getUser(currentUserId).getRegionTitle());
+
+        homeFragment = HomeFragment.newInstance(fragments, titles);
         myProfileFragment = MyProfileFragment.newInstance();
 
         displayFragment(homeFragment, TAG_HOME);
@@ -64,12 +74,7 @@ public class MainActivity extends AppCompatActivity
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toobar_activity_main);
  //       setSupportActionBar(toolbar);
 
-/*        ViewPager vp_pages= (ViewPager) findViewById(R.id.viewPager);
-        PagerAdapter pagerAdapter = new TabAdapter(getSupportFragmentManager());
-        vp_pages.setAdapter(pagerAdapter);
-
-        TabLayout tbl_pages= (TabLayout) findViewById(R.id.tbl_pages);
-        tbl_pages.setupWithViewPager(vp_pages);
+/*
 */
     }
 
@@ -223,44 +228,6 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(PostActivity.ARGS_POST_POSITION, clickPosition);
         intent.putExtra(PostActivity.ARGS_POSTS, posts);
         startActivity(intent);
-    }
-
-    class TabAdapter extends FragmentPagerAdapter {
-
-        public TabAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return TilesFragment.newInstance(getPosts(0));
-                case 1:
-                    return TilesFragment.newInstance(getSubscribedPosts());
-                case 2:
-                    return TilesFragment.newInstance(getPosts(2));
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position){
-                //TODO replace with string resources
-                case 0:return "Мир";
-                case 1:return "Подписки";
-                case 2: return "Беларусь";
-                default: return null;
-            }
-
-        }
     }
 
 }
