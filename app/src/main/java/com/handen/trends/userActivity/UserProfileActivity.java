@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.handen.trends.R;
-import com.handen.trends.TilesFragment;
+import com.handen.trends.fragments.TilesFragment;
 import com.handen.trends.data.Post;
 import com.handen.trends.data.User;
 

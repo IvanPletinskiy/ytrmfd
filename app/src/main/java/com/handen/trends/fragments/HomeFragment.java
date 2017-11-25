@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.handen.trends.R;
-import com.handen.trends.TabAdapter;
+import com.handen.trends.adapters.TabAdapter;
 
 import java.util.ArrayList;
 

@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.handen.trends.data.Post;
+import com.handen.trends.fragments.PostFragment;
 
 import java.util.ArrayList;
 

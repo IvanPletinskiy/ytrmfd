@@ -1,4 +1,4 @@
-package com.handen.trends;
+package com.handen.trends.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
