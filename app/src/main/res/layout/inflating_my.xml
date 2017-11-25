@@ -45,18 +45,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/fragment_host_frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="500dp">
-
+            android:layout_height="wrap_content">
         </FrameLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
