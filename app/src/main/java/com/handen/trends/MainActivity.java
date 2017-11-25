@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.HomeFragment;
 import com.handen.trends.fragments.MyProfileFragment;
+import com.handen.trends.fragments.TilesFragment;
 
 import java.util.ArrayList;
 
