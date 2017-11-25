@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private FloatingActionButton fab;
 
     private HomeFragment homeFragment;
     private MyProfileFragment myProfileFragment;
@@ -70,15 +71,6 @@ public class MainActivity extends AppCompatActivity
         TabLayout tbl_pages= (TabLayout) findViewById(R.id.tbl_pages);
         tbl_pages.setupWithViewPager(vp_pages);
 */
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WritePostActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -197,9 +189,19 @@ public class MainActivity extends AppCompatActivity
 
         if(isMyProfile) {
             layoutInflater.inflate(R.layout.inflating_my, inflateHostCoordinatorLayout);
+            collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_main_activity);
+            collapsingToolbarLayout.setTitle("HANDEN RULEZ");
         }
         else {
             layoutInflater.inflate(R.layout.inflating_not_my, inflateHostCoordinatorLayout);
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, WritePostActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -212,11 +214,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        if(isMyProfile) {
-            collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_main_activity);
-            collapsingToolbarLayout.setTitle("HANDEN RULEZ");
-        }
 
     }
 
