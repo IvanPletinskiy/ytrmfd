@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.handen.trends.adapters.TabAdapter;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends NavigationFragment {
     private static final String ARGS_FRAGMENTS = "fragments";
     private static final String ARGS_TITLES = "titles";
 
@@ -27,7 +28,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> titles;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @SuppressWarnings("unused")
@@ -52,7 +52,17 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        findView(view);
+        return view;
+
+    }
+
+
+    @Override
+    public void findView(View view) {
+        super.findView(view);
 
         viewPager= (ViewPager) view.findViewById(R.id.viewPager);
         pagerAdapter = new TabAdapter(fragments, titles,
@@ -62,7 +72,9 @@ public class HomeFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tbl_pages);
         tabLayout.setupWithViewPager(viewPager);
 
-        return view;
-    }
+        ((AppCompatActivity) getActivity())
+                .getSupportActionBar()
+                .setTitle(R.string.main);
 
+    }
 }
