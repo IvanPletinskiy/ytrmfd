@@ -1,13 +1,18 @@
-package com.handen.trends;
+package com.handen.trends.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handen.trends.R;
+import com.handen.trends.adapters.TilesAdapter;
+import com.handen.trends.TilesLayoutManager;
 import com.handen.trends.data.Post;
 
 import java.util.ArrayList;
@@ -21,7 +26,7 @@ import java.util.ArrayList;
  * Use the {@link TilesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TilesFragment extends Fragment {
+public class TilesFragment extends Fragment implements Parcelable{
 
     private static final String ARGS_POSTS = "posts";
 
@@ -116,6 +121,16 @@ public class TilesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 
     /**

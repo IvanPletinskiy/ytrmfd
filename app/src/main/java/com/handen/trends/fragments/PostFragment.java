@@ -1,4 +1,4 @@
-package com.handen.trends;
+package com.handen.trends.fragments;
 
 
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.userActivity.UserProfileActivity;
 

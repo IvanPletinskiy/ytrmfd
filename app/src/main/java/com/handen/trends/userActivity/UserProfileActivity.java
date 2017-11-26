@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.handen.trends.R;
-import com.handen.trends.TilesFragment;
+import com.handen.trends.fragments.TilesFragment;
 import com.handen.trends.data.Post;
 import com.handen.trends.data.User;
 
@@ -39,10 +39,6 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-//        //TODO 11.11.2017 сделать как в quiz, разобраться как правильно
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activity_user_profile);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         userId = getIntent().getLongExtra(ARGS_USER_ID, -1);
         userPosts = getUserPosts(userId);

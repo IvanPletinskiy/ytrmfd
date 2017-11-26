@@ -86,8 +86,6 @@ public class WritePostActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void showExitAlertDialog() {

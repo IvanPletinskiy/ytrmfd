@@ -16,6 +16,7 @@ public class Post implements Serializable {
     private long userId;
     private String title;
     private ArrayList<Category> categories;
+    private Category category;
     private String text;
     private ArrayList<String> tags;
     private long views;
@@ -32,6 +33,19 @@ public class Post implements Serializable {
         this.is24hours = is24hours;
         this.views = views;
         this.likes = likes;
+        this.creationDate = new Date();
+        this.id = id;
+        this.userId = userId;
+    }
+
+    public Post(String title, Category category, String text, ArrayList<String> tags, boolean is24hours, long id, long userId) {
+        this.title = title;
+        this.categories = categories;
+        this.text = text;
+        this.tags = tags;
+        this.is24hours = is24hours;
+        this.views = 0;
+        this.likes = 0;
         this.creationDate = new Date();
         this.id = id;
         this.userId = userId;
