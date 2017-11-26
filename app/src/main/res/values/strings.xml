@@ -17,6 +17,8 @@
 
     <string name="world">Мир</string>
     <string name="subscribtions">Подписки</string>
+    <string name="trends">Тренды</string>
+    <string name="aboutUser">О пользователе</string>
 
     <!-- Navigation Drawer -->
     <string name="main">Главная</string>
