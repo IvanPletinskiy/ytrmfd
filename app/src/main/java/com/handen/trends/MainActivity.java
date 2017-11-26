@@ -2,25 +2,18 @@ package com.handen.trends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.HomeFragment;
 import com.handen.trends.fragments.MyProfileFragment;
+import com.handen.trends.fragments.NavigationFragment;
 import com.handen.trends.fragments.TilesFragment;
 
 import java.util.ArrayList;
@@ -31,16 +24,10 @@ import static com.handen.trends.ClientInterface.getSubscribedPosts;
 import static com.handen.trends.ClientInterface.getUser;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+        implements NavigationFragment.OnNavigationItemClick,
         TilesFragment.OnTileClickListener {
 
-    private FrameLayout fragmentHostFrameLayout;
-    private CoordinatorLayout inflateHostCoordinatorLayout;
-    private Toolbar toolbar;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private FloatingActionButton fab;
+    private CoordinatorLayout fragmentHostCoordinatorLayout;
 
     private HomeFragment homeFragment;
     private MyProfileFragment myProfileFragment;
@@ -54,8 +41,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        inflateHostCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.inflate_host_coordinator_layout);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        fragmentHostCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.fragment_host_coordinator_layout);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TilesFragment.newInstance(getPosts(0)));
@@ -72,44 +58,6 @@ public class MainActivity extends AppCompatActivity
 
         displayFragment(homeFragment, TAG_HOME);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toobar_activity_main);
- //       setSupportActionBar(toolbar);
-
-/*
-*/
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -150,76 +98,34 @@ public class MainActivity extends AppCompatActivity
 
                                     }
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
     }
 
-    private void displayFragment(Fragment fragment, String TAG) {
 
-        switch (TAG) {
-            case TAG_MY_PROFILE : {
-                inflate(true);
-                break;
-            }
-            default: {
-                inflate(false);
-                break;
-            }
-        }
+    public void displayFragment(Fragment fragment, String TAG) {
+        Fragment currentFragment = MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_host_coordinator_layout);
 
-        Fragment currentFragment = MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_host_frame_layout);
-
-        if(currentFragment == null) {
+        if(currentFragment == null || TAG.equals(TAG_HOME)) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(TAG)
-                    .replace(R.id.fragment_host_frame_layout, homeFragment, TAG)
+                    .replace(R.id.fragment_host_coordinator_layout, fragment, TAG)
                     .commit();
             return;
+
         }
 
         if (!TAG.equals(currentFragment.getTag())) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(TAG)
-                    .replace(R.id.fragment_host_frame_layout, fragment, TAG)
+                    .replace(R.id.fragment_host_coordinator_layout, fragment, TAG)
                     .commit();
         }
-    }
-
-    private void inflate(boolean isMyProfile) {
-
-        LayoutInflater layoutInflater = getLayoutInflater();
-        inflateHostCoordinatorLayout.removeAllViews();
-
-        if(isMyProfile) {
-            layoutInflater.inflate(R.layout.inflating_my, inflateHostCoordinatorLayout);
-            collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_main_activity);
-            collapsingToolbarLayout.setTitle("HANDEN RULEZ");
-        }
-        else {
-            layoutInflater.inflate(R.layout.inflating_not_my, inflateHostCoordinatorLayout);
-            fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(MainActivity.this, WritePostActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -231,4 +137,36 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
