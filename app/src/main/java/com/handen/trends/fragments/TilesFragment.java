@@ -67,28 +67,7 @@ public class TilesFragment extends Fragment implements Parcelable{
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
-            TilesLayoutManager manager = new TilesLayoutManager(
-                    new TilesLayoutManager.GridSpanLookup() {
-                        @Override
-                        public TilesLayoutManager.SpanInfo getSpanInfo(int position) {
-                            switch (position % 8) {
-             /*                   case 0:
-                                case 5:
-                                    return new TilesLayoutManager.SpanInfo(2, 2);
-
-                                case 3:
-                                case 7:
-                                    return new TilesLayoutManager.SpanInfo(3, 2);
-                                    */
-
-                                default:
-                                    return new TilesLayoutManager.SpanInfo(2, 2);
-                            }
-                        }
-                    },
-                    8, // number of columns
-                    1f // default size of item
-            );
+            TilesLayoutManager manager = new TilesLayoutManager();
 
             recyclerView.setLayoutManager(manager);
 
