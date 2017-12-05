@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.handen.trends.PostComparator;
 import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.TilesFragment;
+import com.handen.trends.patterns.Pattern;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Vanya on 15.10.2017.
@@ -20,13 +23,16 @@ import java.util.ArrayList;
 public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> {
 
     private ArrayList<Post> posts;
+    private ArrayList<Pattern> patterns;
+
+    private PostComparator postComparator;
 
     private TilesFragment.OnTileClickListener mListener;
-
 
     public TilesAdapter(ArrayList<Post> posts, TilesFragment.OnTileClickListener listener) {
         this.posts = posts;
         this.mListener = listener;
+        generatePatterns();
     }
 
     @Override
@@ -41,7 +47,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
 
         holder.post = posts.get(position);
 
-        holder.button.setText(Integer.toString(holder.getAdapterPosition()) +" " + holder.post.getTitle());
+        holder.button.setText(Integer.toString(holder.getAdapterPosition()) + " " + holder.post.getTitle());
 
         if( holder.getAdapterPosition() % 2 == 0)
             holder.button.setBackgroundColor(Color.RED);
@@ -62,6 +68,59 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         return posts.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+
+    }
+
+
+    private void generatePatterns() {
+        sortPosts();
+        fillPatternsWithPosts();
+        Collections.shuffle(patterns);
+    }
+
+    private void sortPosts() {
+        postComparator = new PostComparator(getAveragePopularity(), getAveragePeriod());
+        Collections.sort(posts, postComparator);
+
+    }
+
+    private void fillPatternsWithPosts() {
+        ArrayList<Post> bufferList = new ArrayList<>();
+        while (posts.size() != 0) {
+
+            if(posts.size() == 1) {
+                bufferList.add(posts.get(0));
+                posts.remove(0);
+                patterns.add(new Pattern())
+                continue;
+            }
+            if(posts.size() == 2) {
+                continue;
+            }
+
+        }
+    }
+
+
+    private float getAveragePopularity() {
+        float totalPopularity = 0;
+        for(Post post : posts) {
+            totalPopularity += post.getPopularity();
+        }
+        return totalPopularity / posts.size();
+    }
+
+
+    private float getAveragePeriod() {
+        long totalPeriod = 0;
+        for (Post post: posts) {
+            totalPeriod += post.getPeriod();
+        }
+        return totalPeriod / posts.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
         private Post post;
@@ -71,7 +130,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            button = (Button) view.findViewById(R.id.tile);
+   //         button = (Button) view.findViewById(R.id.tile);
 
         //    noteTextView = (TextView) view.findViewById(R.id.note);
         }

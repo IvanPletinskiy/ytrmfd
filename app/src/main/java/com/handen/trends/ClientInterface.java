@@ -21,6 +21,9 @@ public class ClientInterface {
     public static int lastPostId = 49;
     public static int currentUserId = 0;
 
+    public static final int POST_BONUS = 25;
+    public static final float POST_IS24BONUS = 1.5f;
+
     static {
         availablePosts = new ArrayList<>();
         ArrayList<Category> categories = new ArrayList<>();

@@ -1,16 +1,21 @@
 package com.handen.trends.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.handen.trends.ClientInterface;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.handen.trends.ClientInterface.POST_BONUS;
+import static com.handen.trends.ClientInterface.POST_IS24BONUS;
 
 /**
  * Created by Vanya on 15.10.2017.
  */
 
-public class Post implements Serializable {
+public class Post implements Parcelable {
 
     private long id;
     private long userId;
@@ -21,8 +26,11 @@ public class Post implements Serializable {
     private ArrayList<String> tags;
     private long views;
     private long likes;
-    private Date creationDate;
+    private Date postDate;
     private boolean is24hours;
+
+    private boolean isPositive;
+
 
 
     public Post(String title, ArrayList<Category> categories, String text, ArrayList<String> tags, boolean is24hours, long id, long userId, long views, long likes) {
@@ -33,7 +41,7 @@ public class Post implements Serializable {
         this.is24hours = is24hours;
         this.views = views;
         this.likes = likes;
-        this.creationDate = new Date();
+        this.postDate = new Date();
         this.id = id;
         this.userId = userId;
     }
@@ -46,10 +54,13 @@ public class Post implements Serializable {
         this.is24hours = is24hours;
         this.views = 0;
         this.likes = 0;
-        this.creationDate = new Date();
+        this.postDate = new Date();
         this.id = id;
         this.userId = userId;
     }
+
+
+
 
     public String getTitle() {
         return title;
@@ -71,8 +82,8 @@ public class Post implements Serializable {
         this.text = text;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getPostDate() {
+        return postDate;
     }
 
     public String getUserNickname() {
@@ -85,5 +96,35 @@ public class Post implements Serializable {
 
     public long getUserId() {
         return userId;
+    }
+
+    public boolean isPositive() {
+        return isPositive;
+    }
+
+    public void setPositive(boolean positive) {
+        isPositive = positive;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+
+    public float getPopularity() {
+        // (b + (l * 3 + v) * v/(l + 1))
+        //int bonus = POST_BONUS;
+        float is24Bonus = (is24hours)? POST_IS24BONUS : 1;
+
+        return (POST_BONUS + (likes * 3 + views) * (views / (likes + 1)));
+    }
+
+    public long getPeriod() {
+        return postDate.getTime();
     }
 }

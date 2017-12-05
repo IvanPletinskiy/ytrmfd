@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handen.trends.PostComparator;
 import com.handen.trends.R;
 import com.handen.trends.adapters.TilesAdapter;
 import com.handen.trends.TilesLayoutManager;
 import com.handen.trends.data.Post;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -30,10 +33,11 @@ public class TilesFragment extends Fragment implements Parcelable{
 
     private static final String ARGS_POSTS = "posts";
 
-
     private ArrayList<Post> posts;
 
     private OnTileClickListener mListener;
+    RecyclerView recyclerView;
+
 
     public TilesFragment() {
         // Required empty public constructor
@@ -43,7 +47,7 @@ public class TilesFragment extends Fragment implements Parcelable{
     public static TilesFragment newInstance(ArrayList<Post> posts) {
         TilesFragment fragment = new TilesFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_POSTS, posts);
+        args.putParcelable(ARGS_POSTS, (Parcelable) posts);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +56,7 @@ public class TilesFragment extends Fragment implements Parcelable{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            posts = (ArrayList<Post>) getArguments().getSerializable(ARGS_POSTS);
+            posts = (ArrayList<Post>) getArguments().getParcelable(ARGS_POSTS);
         }
     }
 
@@ -62,10 +66,9 @@ public class TilesFragment extends Fragment implements Parcelable{
 
         View view = inflater.inflate(R.layout.fragment_tiles, container, false);
 
-
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
 
             TilesLayoutManager manager = new TilesLayoutManager();
 
