@@ -1,5 +1,6 @@
 package com.handen.trends.patterns;
 
+import android.content.Context;
 import android.view.View;
 
 /**
@@ -8,8 +9,9 @@ import android.view.View;
 
 public class Pattern1 extends Pattern {
 
-    public Pattern1() {
+    public Pattern1(Context context) {
+        View view = new View(context);
 
-        super(itemView);
+        super(view);
     }
 }
