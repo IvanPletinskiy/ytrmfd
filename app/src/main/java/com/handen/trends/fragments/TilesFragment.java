@@ -1,24 +1,25 @@
 package com.handen.trends.fragments;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.handen.trends.PostComparator;
 import com.handen.trends.R;
-import com.handen.trends.adapters.TilesAdapter;
 import com.handen.trends.TilesLayoutManager;
+import com.handen.trends.adapters.TilesAdapter;
 import com.handen.trends.data.Post;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 
 /**
@@ -47,7 +48,7 @@ public class TilesFragment extends Fragment implements Parcelable{
     public static TilesFragment newInstance(ArrayList<Post> posts) {
         TilesFragment fragment = new TilesFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARGS_POSTS, (Parcelable) posts);
+        args.putSerializable(ARGS_POSTS, (Serializable) posts);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,7 +57,7 @@ public class TilesFragment extends Fragment implements Parcelable{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            posts = (ArrayList<Post>) getArguments().getParcelable(ARGS_POSTS);
+            posts = (ArrayList<Post>) getArguments().getSerializable(ARGS_POSTS);
         }
     }
 
@@ -70,11 +71,15 @@ public class TilesFragment extends Fragment implements Parcelable{
             Context context = view.getContext();
             recyclerView = (RecyclerView) view;
 
-            TilesLayoutManager manager = new TilesLayoutManager();
+       //     TilesLayoutManager manager = new TilesLayoutManager();
 
-            recyclerView.setLayoutManager(manager);
-
-            TilesAdapter tilesAdapter = new TilesAdapter(posts, mListener);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+            TilesAdapter tilesAdapter = new TilesAdapter(posts, mListener, width);
 
             recyclerView.setAdapter(tilesAdapter);
         }

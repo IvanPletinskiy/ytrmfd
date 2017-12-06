@@ -1,17 +1,22 @@
 package com.handen.trends.adapters;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.handen.trends.PostComparator;
 import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.TilesFragment;
-import com.handen.trends.patterns.Pattern;
+import com.handen.trends.patterns.Row;
+import com.handen.trends.patterns.Row1;
+import com.handen.trends.patterns.Row2;
+import com.handen.trends.patterns.Row3;
+import com.handen.trends.patterns.Row4;
+import com.handen.trends.patterns.Row5;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,22 +27,81 @@ import java.util.Collections;
 
 public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> {
 
+    /*
+    Нужно создавать Patterns
+     */
+
     private ArrayList<Post> posts;
-    private ArrayList<Pattern> patterns;
+    private ArrayList<Row> rows = new ArrayList<>();
 
     private PostComparator postComparator;
 
+    private float cellHeight;
+
     private TilesFragment.OnTileClickListener mListener;
 
-    public TilesAdapter(ArrayList<Post> posts, TilesFragment.OnTileClickListener listener) {
+    public TilesAdapter(ArrayList<Post> posts, TilesFragment.OnTileClickListener listener, int recyclerWidth) {
         this.posts = posts;
         this.mListener = listener;
-        generatePatterns();
+        cellHeight = recyclerWidth / 6;
+
+        generateRows();
     }
 
     @Override
     public TilesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tile, parent, false);
+        //switch по viewType, устанавливается высота ряда
+        int layoutFileResourceId = 0;
+        switch (viewType) {
+            case 1:
+                //xmlResource = pattern_1
+                layoutFileResourceId = R.layout.pattern_1;
+                break;
+            case 2:
+                layoutFileResourceId = R.layout.pattern_2;
+                break;
+            case 3:
+                layoutFileResourceId = R.layout.pattern_3;
+                break;
+            case 4:
+                layoutFileResourceId = R.layout.pattern_4;
+                break;
+            case 5:
+                layoutFileResourceId = R.layout.pattern_5;
+                break;
+                //xmlResource = pattern_2
+
+        }
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutFileResourceId, parent, false);
+
+        switch (viewType) {
+            case 1:
+                //xmlResource = pattern_1
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 6)));
+                break;
+            case 2:
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 3)));
+                break;
+            case 3:
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 4)));
+                break;
+            case 4:
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 4)));
+                break;
+            case 5:
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 2)));
+                break;
+            //xmlResource = pattern_2
+
+        }
+
+   //     myGraphView.setLayoutParams(new LayoutParams(width, height));
 
         return new ViewHolder(view);
     }
@@ -45,7 +109,20 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final TilesAdapter.ViewHolder holder, int position) {
 
-        holder.post = posts.get(position);
+        int rowType = rows.get(position).getId();
+
+        switch (rowType) {
+            case 1:
+    //            holder.mView.findViewById(R.id.tile1);
+                break;
+            case 2:
+     //           holder.mView.findViewById(R.id.tile1);
+     //           holder.mView.findViewById(R.id.tile2);
+                break;
+
+        }
+
+/*        holder.post = posts.get(position);
 
         holder.button.setText(Integer.toString(holder.getAdapterPosition()) + " " + holder.post.getTitle());
 
@@ -60,24 +137,24 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
                 mListener.startPostActivity(holder.getAdapterPosition(), posts);
             }
         });
+*/
 
     }
 
     @Override
     public int getItemCount() {
-        return posts.size();
+        return rows.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-
+        return rows.get(position).getId();
     }
 
-
-    private void generatePatterns() {
+    private void generateRows() {
         sortPosts();
         fillPatternsWithPosts();
-        Collections.shuffle(patterns);
+       // Collections.shuffle(rows);
     }
 
     private void sortPosts() {
@@ -87,20 +164,46 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     }
 
     private void fillPatternsWithPosts() {
-        ArrayList<Post> bufferList = new ArrayList<>();
-        while (posts.size() != 0) {
+        int i = 0;
+        for(; i < posts.size() - 3; i += 3) {
+            Post p1 = posts.get(i);
+            Post p2 = posts.get(i + 1);
+            Post p3 = posts.get(i + 2);
 
-            if(posts.size() == 1) {
-                bufferList.add(posts.get(0));
-                posts.remove(0);
-                patterns.add(new Pattern())
-                continue;
+            int positiveCount = getPositiveCount(p1, p2, p3);
+            switch (positiveCount) {
+                case 3 :
+                    rows.add(new Row1());
+                    rows.add(new Row2());
+                    break;
+                case 2 :
+                    rows.add(new Row3());
+                    break;
+                case 1 :
+                    rows.add(new Row4());
+                    break;
+                case 0 :
+                    rows.add(new Row5());
+                    break;
             }
-            if(posts.size() == 2) {
-                continue;
-            }
-
         }
+        if(i == posts.size() - 2) {
+            //Один элемент
+        }
+        if(i == posts.size() - 3) {
+            //Два элемента
+        }
+    }
+
+    private int getPositiveCount(Post p1, Post p2, Post p3) {
+        int count = 0;
+        if(p1.isPositive())
+            count++;
+        if(p2.isPositive())
+            count++;
+        if(p3.isPositive())
+            count++;
+        return count;
     }
 
 

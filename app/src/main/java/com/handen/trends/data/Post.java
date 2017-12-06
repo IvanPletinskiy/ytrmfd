@@ -1,5 +1,6 @@
 package com.handen.trends.data;
 
+import android.media.MediaActionSound;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -41,7 +42,9 @@ public class Post implements Parcelable {
         this.is24hours = is24hours;
         this.views = views;
         this.likes = likes;
-        this.postDate = new Date();
+       // this.postDate = new Date();
+        Date date = new Date();
+        this.postDate = new Date(date.getTime() + (long) (Math.random() * 100000));
         this.id = id;
         this.userId = userId;
     }
@@ -54,7 +57,9 @@ public class Post implements Parcelable {
         this.is24hours = is24hours;
         this.views = 0;
         this.likes = 0;
-        this.postDate = new Date();
+        //this.postDate = new Date;
+        Date date = new Date();
+        this.postDate = new Date(date.getTime() + (long) (Math.random() * 100000));
         this.id = id;
         this.userId = userId;
     }
@@ -121,7 +126,7 @@ public class Post implements Parcelable {
         //int bonus = POST_BONUS;
         float is24Bonus = (is24hours)? POST_IS24BONUS : 1;
 
-        return (POST_BONUS + (likes * 3 + views) * (views / (likes + 1)));
+        return (POST_BONUS + (likes * 3 + views) * ((float)views / (likes + 1)));
     }
 
     public long getPeriod() {

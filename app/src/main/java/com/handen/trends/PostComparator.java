@@ -36,10 +36,11 @@ public class PostComparator implements Comparator<Post> {
 
         if(post1Value > post2Value)
             return 1;
-        if(post2Value > post1Value)
-            return -1;
-        return 0;
-
+        else
+            if (post2Value > post1Value)
+                return -1;
+            else
+                return 0;
     }
 
     public PostComparator(float averagePopularity, float averagePeriod) {
