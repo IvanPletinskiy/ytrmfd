@@ -20,6 +20,7 @@ import com.handen.trends.patterns.Row5;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * Created by Vanya on 15.10.2017.
@@ -111,6 +112,10 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
 
         int rowType = rows.get(position).getId();
 
+ //       for (Post p: posts) {
+ //           System.err.println(p.getTitle());
+    //    }
+
         switch (rowType) {
             case 1:
     //            holder.mView.findViewById(R.id.tile1);
@@ -158,8 +163,10 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     }
 
     private void sortPosts() {
-        postComparator = new PostComparator(getAveragePopularity(), getAveragePeriod());
+        postComparator = new PostComparator(getAveragePopularity(), getAverageHours());
         Collections.sort(posts, postComparator);
+
+        System.err.println(posts);
 
     }
 
@@ -216,12 +223,13 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     }
 
 
-    private float getAveragePeriod() {
-        long totalPeriod = 0;
+    private float getAverageHours() {
+        float totalHours = 0;
+        long currentMillis = new Date().getTime();
         for (Post post: posts) {
-            totalPeriod += post.getPeriod();
+            totalHours += ((float) (currentMillis - post.getPeriod()) / 3600000);
         }
-        return totalPeriod / posts.size();
+        return totalHours / posts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

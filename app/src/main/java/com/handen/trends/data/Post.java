@@ -44,7 +44,7 @@ public class Post implements Parcelable {
         this.likes = likes;
        // this.postDate = new Date();
         Date date = new Date();
-        this.postDate = new Date(date.getTime() + (long) (Math.random() * 100000));
+        this.postDate = new Date(1512625948473L  + (getLikes() * 1000));
         this.id = id;
         this.userId = userId;
     }
@@ -57,9 +57,9 @@ public class Post implements Parcelable {
         this.is24hours = is24hours;
         this.views = 0;
         this.likes = 0;
-        //this.postDate = new Date;
+       // this.postDate = new Date();
         Date date = new Date();
-        this.postDate = new Date(date.getTime() + (long) (Math.random() * 100000));
+        this.postDate = new Date(date.getTime() + (getLikes() * 100000));
         this.id = id;
         this.userId = userId;
     }
@@ -131,5 +131,10 @@ public class Post implements Parcelable {
 
     public long getPeriod() {
         return postDate.getTime();
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }
