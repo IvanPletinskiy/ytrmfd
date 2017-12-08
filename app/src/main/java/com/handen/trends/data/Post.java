@@ -1,11 +1,12 @@
 package com.handen.trends.data;
 
-import android.media.MediaActionSound;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.handen.trends.ClientInterface;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,7 +31,9 @@ public class Post implements Parcelable {
     private Date postDate;
     private boolean is24hours;
 
+
     private boolean isPositive;
+    private float weight;
 
 
 
@@ -127,6 +130,15 @@ public class Post implements Parcelable {
         float is24Bonus = (is24hours)? POST_IS24BONUS : 1;
 
         return (POST_BONUS + (likes * 3 + views) * ((float)views / (likes + 1)));
+    }
+
+    public void setWeight(float weight) {
+        BigDecimal bigDecimal = new BigDecimal(weight).setScale(9, RoundingMode.UP);
+        this.weight = bigDecimal.floatValue();
+    }
+
+    public float getWeight() {
+        return weight;
     }
 
     public long getPeriod() {

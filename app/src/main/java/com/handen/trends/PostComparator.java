@@ -2,10 +2,7 @@ package com.handen.trends;
 
 import com.handen.trends.data.Post;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Comparator;
-import java.util.Date;
 
 /**
  * Created by Vanya on 05.12.2017.
@@ -17,7 +14,7 @@ public class PostComparator implements Comparator<Post> {
     @Override
     public int compare(Post post1, Post post2) {
         //TODO можно оптимизировать
-        long currentMillis = new Date().getTime();
+/*        long currentMillis = new Date().getTime();
         float post1Value;
         float post2Value;
         int returnValue = 0;
@@ -64,19 +61,25 @@ public class PostComparator implements Comparator<Post> {
         return returnValue;
         */
 
-        if(post1Value > post2Value)
-            return 1;
+        float post1Weight = post1.getWeight();
+        float post2Weight = post2.getWeight();
+
+        if(post1Weight > post2Weight)
+            return -1;
         else
-            if (post2Value > post1Value)
-                return -1;
+            if (post2Weight > post1Weight)
+                return 1;
             else
                 return 0;
-
-
     }
 
+    public PostComparator() {
+
+    }
+    /*
     public PostComparator(float averagePopularity, float averageHours) {
         this.averagePopularity = averagePopularity;
         this.averageHours = averageHours;
     }
+    */
 }

@@ -11,12 +11,14 @@ import com.handen.trends.PostComparator;
 import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.TilesFragment;
-import com.handen.trends.patterns.Row;
-import com.handen.trends.patterns.Row1;
-import com.handen.trends.patterns.Row2;
-import com.handen.trends.patterns.Row3;
-import com.handen.trends.patterns.Row4;
-import com.handen.trends.patterns.Row5;
+import com.handen.trends.rows.Row;
+import com.handen.trends.rows.Row1;
+import com.handen.trends.rows.Row2;
+import com.handen.trends.rows.Row3;
+import com.handen.trends.rows.Row4;
+import com.handen.trends.rows.Row5;
+import com.handen.trends.rows.Row6;
+import com.handen.trends.rows.Row7;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,6 +72,12 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
             case 5:
                 layoutFileResourceId = R.layout.pattern_5;
                 break;
+            case 6:
+                layoutFileResourceId = R.layout.row_6;
+                break;
+            case 7:
+                layoutFileResourceId = R.layout.row_7;
+                break;
                 //xmlResource = pattern_2
 
         }
@@ -98,11 +106,15 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
                 view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
                         Math.round(cellHeight * 2)));
                 break;
-            //xmlResource = pattern_2
-
+            case 6:
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 2)));
+                break;
+            case 7:
+                view.setLayoutParams(new LinearLayout.LayoutParams(Math.round(cellHeight * 6),
+                        Math.round(cellHeight * 3)));
+                break;
         }
-
-   //     myGraphView.setLayoutParams(new LayoutParams(width, height));
 
         return new ViewHolder(view);
     }
@@ -112,37 +124,51 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
 
         int rowType = rows.get(position).getId();
 
- //       for (Post p: posts) {
- //           System.err.println(p.getTitle());
-    //    }
+        ArrayList<Integer> postIndexes = rows.get(position).getIndexes();
 
         switch (rowType) {
             case 1:
-    //            holder.mView.findViewById(R.id.tile1);
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
                 break;
             case 2:
-     //           holder.mView.findViewById(R.id.tile1);
-     //           holder.mView.findViewById(R.id.tile2);
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
+                holder.tile2 = (Button) holder.mView.findViewById(R.id.tile_2);
+                holder.id2 = postIndexes.get(1);
                 break;
-
+            case 3:
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
+                holder.tile2 = (Button) holder.mView.findViewById(R.id.tile_2);
+                holder.id2 = postIndexes.get(1);
+                holder.tile3 = (Button) holder.mView.findViewById(R.id.tile_3);
+                holder.id3 = postIndexes.get(2);
+                break;
+            case 4:
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.tile2 = (Button) holder.mView.findViewById(R.id.tile_2);
+                holder.tile3 = (Button) holder.mView.findViewById(R.id.tile_3);
+                break;
+            case 5:
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
+                holder.tile2 = (Button) holder.mView.findViewById(R.id.tile_2);
+                holder.id2 = postIndexes.get(1);
+                holder.tile3 = (Button) holder.mView.findViewById(R.id.tile_3);
+                holder.id3 = postIndexes.get(2);
+                break;
+            case 6:
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
+                break;
+            case 7:
+                holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
+                break;
         }
 
-/*        holder.post = posts.get(position);
-
-        holder.button.setText(Integer.toString(holder.getAdapterPosition()) + " " + holder.post.getTitle());
-
-        if( holder.getAdapterPosition() % 2 == 0)
-            holder.button.setBackgroundColor(Color.RED);
-        else
-            holder.button.setBackgroundColor(Color.GREEN);
-
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.startPostActivity(holder.getAdapterPosition(), posts);
-            }
-        });
-*/
+        holder.bindTiles();
 
     }
 
@@ -159,20 +185,20 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     private void generateRows() {
         sortPosts();
         fillPatternsWithPosts();
-       // Collections.shuffle(rows);
+
     }
 
     private void sortPosts() {
-        postComparator = new PostComparator(getAveragePopularity(), getAverageHours());
+        calculateAndSetPostWeight();
+    //    postComparator = new PostComparator(getAveragePopularity(), getAverageHours());
+        postComparator = new PostComparator();
         Collections.sort(posts, postComparator);
-
         System.err.println(posts);
-
     }
 
     private void fillPatternsWithPosts() {
         int i = 0;
-        for(; i < posts.size() - 3; i += 3) {
+        for(; i <= posts.size() - 3; i += 3) {
             Post p1 = posts.get(i);
             Post p2 = posts.get(i + 1);
             Post p3 = posts.get(i + 2);
@@ -180,25 +206,50 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
             int positiveCount = getPositiveCount(p1, p2, p3);
             switch (positiveCount) {
                 case 3 :
-                    rows.add(new Row1());
-                    rows.add(new Row2());
+                    rows.add(new Row1(i));
+                    rows.add(new Row2(i + 1, i + 2));
                     break;
                 case 2 :
-                    rows.add(new Row3());
+                    rows.add(new Row3(i, i + 1, i + 2));
                     break;
                 case 1 :
-                    rows.add(new Row4());
+                    rows.add(new Row4(i, i + 1, i + 2));
                     break;
                 case 0 :
-                    rows.add(new Row5());
+                    rows.add(new Row5(i, i + 1, i + 2));
                     break;
             }
         }
-        if(i == posts.size() - 2) {
+        if(i + 1 == posts.size()) {
             //Один элемент
+            rows.add(new Row6(i));
         }
-        if(i == posts.size() - 3) {
+        if(i + 2 == posts.size()) {
             //Два элемента
+            rows.add(new Row7(i));
+        }
+    }
+
+    private void calculateAndSetPostWeight() {
+        float averageHours = getAverageHours();
+        float averagePopularity = getAveragePopularity();
+        long currentMillis = new Date().getTime();
+        float hourMillis = 3600000;
+        float postPopularity;
+        float postHours;
+        float postMillis;
+        for (Post p: posts) {
+            postMillis = p.getPostDate().getTime();
+
+            postPopularity = p.getPopularity();
+            postHours = (currentMillis - postMillis) / hourMillis;
+            if(postPopularity / averagePopularity > averageHours / postHours) {
+                p.setPositive(true);
+                p.setWeight(postPopularity / averagePopularity);
+            }
+            else {
+                p.setWeight(averageHours / postHours);
+            }
         }
     }
 
@@ -222,7 +273,6 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         return totalPopularity / posts.size();
     }
 
-
     private float getAverageHours() {
         float totalHours = 0;
         long currentMillis = new Date().getTime();
@@ -234,16 +284,32 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
-        private Post post;
-        private Button button;
-    //    public final TextView noteTextView;
+        private Button tile1;
+        private Button tile2;
+        private Button tile3;
+        private int id1 = -1;
+        private int id2 = -1;
+        private int id3 = -1;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-   //         button = (Button) view.findViewById(R.id.tile);
+        }
 
-        //    noteTextView = (TextView) view.findViewById(R.id.note);
+        private void bindTiles() {
+            String postTitle = "emptyPostTitle";
+            if(id1 != -1) {
+                postTitle = posts.get(id1).getTitle();
+                tile1.setText(postTitle);
+            }
+            if(id2 != -1) {
+                postTitle = posts.get(id2).getTitle();
+                tile2.setText(postTitle);
+            }
+            if(id3 != -1) {
+                postTitle = posts.get(id3).getTitle();
+                tile3.setText(postTitle);
+            }
         }
 
     }

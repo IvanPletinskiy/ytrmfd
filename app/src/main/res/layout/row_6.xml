@@ -11,19 +11,19 @@
         android:layout_weight="1"
         android:background="@android:color/holo_green_light"
         />
-    <Button
+    <android.support.v4.widget.Space
         android:id="@+id/tile_2"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_green_dark"
+        android:background="@android:color/transparent"
         />
-    <Button
+    <android.support.v4.widget.Space
         android:id="@+id/tile_3"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_green_light"
+        android:background="@android:color/transparent"
         />
 
 </LinearLayout>
