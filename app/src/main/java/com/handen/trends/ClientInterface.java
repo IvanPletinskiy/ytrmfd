@@ -98,6 +98,7 @@ public class ClientInterface {
         availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 1200,1200));
         availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 1300,1300));
 */
+
         availableUsers = new ArrayList<>();
         availableUsers.add(new User(1, 1, "Handen", new Date()));
         availableUsers.get(0).setDescription("Это описание #1");
@@ -110,8 +111,6 @@ public class ClientInterface {
         availableUsers.add(new User(2, 0, "God", new Date()));
         availableUsers.get(2).setDescription("Одмен");
 
-
-
         for(int i = 0; i < 20 ; i ++) {
             int random = (int)(Math.random() * 100);
             availablePosts.add(new Post(Integer.toString(random), categories, Integer.toString(random),
@@ -119,8 +118,6 @@ public class ClientInterface {
         }
 
     }
-
-
 
     static public ArrayList<Post> getPosts(int region) {
 
@@ -160,10 +157,18 @@ public class ClientInterface {
         return ret;
     }
     static public void likePost(long postId) {
-
+        for(Post post : availablePosts) {
+            if(post.getId() == postId) {
+                post.setLikes(post.getLikes() + 1);
+            }
+        }
     }
     static public void viewPost(long postId) {
-
+        for(Post post : availablePosts) {
+            if(post.getId() == postId) {
+                post.setViews(post.getViews() + 1);
+            }
+        }
     }
 
     static public ArrayList<Comment> getComments(long postId) {

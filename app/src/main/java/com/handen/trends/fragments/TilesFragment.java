@@ -1,10 +1,12 @@
 package com.handen.trends.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handen.trends.PostActivity;
 import com.handen.trends.R;
-import com.handen.trends.TilesLayoutManager;
 import com.handen.trends.adapters.TilesAdapter;
 import com.handen.trends.data.Post;
 
@@ -38,7 +40,6 @@ public class TilesFragment extends Fragment implements Parcelable{
 
     private OnTileClickListener mListener;
     RecyclerView recyclerView;
-
 
     public TilesFragment() {
         // Required empty public constructor

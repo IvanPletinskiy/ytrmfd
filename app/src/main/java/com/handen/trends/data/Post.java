@@ -30,10 +30,8 @@ public class Post implements Parcelable {
     private long likes;
     private Date postDate;
     private boolean is24hours;
-
-
     private boolean isPositive;
-    private float weight;
+    private double weight;
 
 
 
@@ -61,8 +59,8 @@ public class Post implements Parcelable {
         this.views = 0;
         this.likes = 0;
        // this.postDate = new Date();
-        Date date = new Date();
-        this.postDate = new Date(date.getTime() + (getLikes() * 1000000));
+   //     Date date = new Date();
+        this.postDate = new Date(1512625948473L  + (getLikes() * 10000));
         this.id = id;
         this.userId = userId;
     }
@@ -111,6 +109,18 @@ public class Post implements Parcelable {
         isPositive = positive;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setViews(long views) {
+        this.views = views;
+    }
+
+    public void setLikes(long likes) {
+        this.likes = likes;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -118,23 +128,59 @@ public class Post implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeLong(id);
+        dest.writeLong(userId);
+        dest.writeString(title);
+        dest.writeString(text);
+        dest.writeStringList(tags);
+        dest.writeLong(views);
+        dest.writeLong(likes);
+        dest.writeLong(postDate.getTime());
+        dest.writeByte((byte) (is24hours ? 1 : 0));
+        dest.writeByte((byte) (isPositive ? 1 : 0));
+        dest.writeDouble(weight);
     }
+
+    protected Post(Parcel in) {
+        id = in.readLong();
+        userId = in.readLong();
+        title = in.readString();
+        text = in.readString();
+        tags = in.createStringArrayList();
+        views = in.readLong();
+        likes = in.readLong();
+        postDate = new Date(in.readLong());
+        is24hours = in.readByte() != 0;
+        isPositive = in.readByte() != 0;
+        weight = in.readDouble();
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 
     public float getPopularity() {
         // (b + (l * 3 + v) * v/(l + 1))
         //int bonus = POST_BONUS;
         float is24Bonus = (is24hours)? POST_IS24BONUS : 1;
 
-        return (POST_BONUS + (likes * 3 + views) * ((float)views / (likes + 1)));
+        return (POST_BONUS + (likes * 3 + views) * ((float)views / (likes + 1)) * is24Bonus);
     }
 
-    public void setWeight(float numerator, float denominator) {
+    public void setWeight(double numerator, double denominator) {
         BigDecimal bigDecimal = new BigDecimal(numerator / denominator).setScale(15, RoundingMode.UP);
         this.weight = bigDecimal.floatValue();
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
