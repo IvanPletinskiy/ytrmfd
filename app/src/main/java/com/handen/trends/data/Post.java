@@ -47,7 +47,7 @@ public class Post implements Parcelable {
         this.likes = likes;
        // this.postDate = new Date();
         Date date = new Date();
-        this.postDate = new Date(1512625948473L  + (getLikes() * 1000));
+        this.postDate = new Date(1512625948473L  + (getLikes() * 10000));
         this.id = id;
         this.userId = userId;
     }
@@ -62,13 +62,10 @@ public class Post implements Parcelable {
         this.likes = 0;
        // this.postDate = new Date();
         Date date = new Date();
-        this.postDate = new Date(date.getTime() + (getLikes() * 100000));
+        this.postDate = new Date(date.getTime() + (getLikes() * 1000000));
         this.id = id;
         this.userId = userId;
     }
-
-
-
 
     public String getTitle() {
         return title;
@@ -132,8 +129,8 @@ public class Post implements Parcelable {
         return (POST_BONUS + (likes * 3 + views) * ((float)views / (likes + 1)));
     }
 
-    public void setWeight(float weight) {
-        BigDecimal bigDecimal = new BigDecimal(weight).setScale(9, RoundingMode.UP);
+    public void setWeight(float numerator, float denominator) {
+        BigDecimal bigDecimal = new BigDecimal(numerator / denominator).setScale(15, RoundingMode.UP);
         this.weight = bigDecimal.floatValue();
     }
 

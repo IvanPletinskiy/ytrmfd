@@ -147,8 +147,11 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
                 break;
             case 4:
                 holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
+                holder.id1 = postIndexes.get(0);
                 holder.tile2 = (Button) holder.mView.findViewById(R.id.tile_2);
+                holder.id2 = postIndexes.get(1);
                 holder.tile3 = (Button) holder.mView.findViewById(R.id.tile_3);
+                holder.id3 = postIndexes.get(2);
                 break;
             case 5:
                 holder.tile1 = (Button) holder.mView.findViewById(R.id.tile_1);
@@ -245,10 +248,10 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
             postHours = (currentMillis - postMillis) / hourMillis;
             if(postPopularity / averagePopularity > averageHours / postHours) {
                 p.setPositive(true);
-                p.setWeight(postPopularity / averagePopularity);
+                p.setWeight(postPopularity, averagePopularity);
             }
             else {
-                p.setWeight(averageHours / postHours);
+                p.setWeight(averageHours, postHours);
             }
         }
     }

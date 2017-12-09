@@ -81,7 +81,7 @@ public class ClientInterface {
         availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения24", new ArrayList<>(Arrays.asList("день рожденья12")), false, 23, 3, 0,0));
 
 */
-
+/*
         availablePosts.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 800,800));
         availablePosts.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 1000,1000));
 
@@ -97,7 +97,7 @@ public class ClientInterface {
         availablePosts.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 1100,1100));
         availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 1200,1200));
         availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 1300,1300));
-
+*/
         availableUsers = new ArrayList<>();
         availableUsers.add(new User(1, 1, "Handen", new Date()));
         availableUsers.get(0).setDescription("Это описание #1");
@@ -111,13 +111,12 @@ public class ClientInterface {
         availableUsers.get(2).setDescription("Одмен");
 
 
-        for(int i = 0; i < 10 ; i ++) {
+
+        for(int i = 0; i < 20 ; i ++) {
             int random = (int)(Math.random() * 100);
             availablePosts.add(new Post(Integer.toString(random), categories, Integer.toString(random),
                     new ArrayList<>(Arrays.asList(Integer.toString(random))), true, 24 + i, 1, random, random));
         }
-
-
 
     }
 
