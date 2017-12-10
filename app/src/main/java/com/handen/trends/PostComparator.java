@@ -25,8 +25,4 @@ public class PostComparator implements Comparator<Post> {
             else
                 return 0;
     }
-
-    public PostComparator() {
-
-    }
 }

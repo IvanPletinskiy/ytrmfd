@@ -30,9 +30,7 @@ import java.util.Date;
  *
  * Класс-адаптер, отвечающий за сортировку постов, их распределение по рядам и создание ViewHolder ов
  */
-
 public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> {
-
     /**
      * Список постов
      */
@@ -231,6 +229,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     }
 
     private int getPositiveCount(Post p1, Post p2, Post p3) {
+        //Считаем кол-во положительных постов
         int count = 0;
         if (p1.isPositive())
             count++;
@@ -240,7 +239,6 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
             count++;
         return count;
     }
-
 
     private double getAveragePopularity() {
         double totalPopularity = 0;
@@ -264,7 +262,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         private Button tile1;
         private Button tile2;
         private Button tile3;
-
+        //индексы постов в списке
         private int id1 = -1;
         private int id2 = -1;
         private int id3 = -1;
@@ -275,6 +273,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         }
 
         private void bindTiles() {
+            //Устанавливаем названия для плиток
             String postTitle = "emptyPostTitle";
             if (id1 != -1) {
                 postTitle = posts.get(id1).getTitle();
@@ -294,14 +293,13 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         }
 
         private View.OnClickListener createTileOnClickListener(final int clickPosition) {
+            //Создаём onClickListener для каждой плитки, по нажатию открывается PostActivity
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mListener.startPostActivity(clickPosition, posts);
                 }
             };
-
         }
-
     }
 }
