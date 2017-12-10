@@ -50,6 +50,7 @@ public class PostFragment extends Fragment {
     public static PostFragment newInstance(Post post) {
         PostFragment fragment = new PostFragment();
         Bundle args = new Bundle();
+
         args.putParcelable(ARGS_POST, (Parcelable) post);
 
         fragment.setArguments(args);
@@ -80,6 +81,7 @@ public class PostFragment extends Fragment {
         dateTextView = (TextView) view.findViewById(R.id._text_view_date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
         dateTextView.setText(dateFormat.format(post.getPostDate()));
+      
         postTextTextView = (TextView) view.findViewById(R.id.text_view_post_text);
         postTextTextView.setText(post.getText());
 

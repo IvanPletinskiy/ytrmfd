@@ -1,6 +1,7 @@
 package com.handen.trends.fragments;
 
 import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -11,9 +12,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 import com.handen.trends.PostActivity;
 import com.handen.trends.R;
@@ -35,11 +38,10 @@ import java.util.ArrayList;
 public class TilesFragment extends Fragment implements Parcelable{
 
     private static final String ARGS_POSTS = "posts";
-
     private ArrayList<Post> posts;
-
     private OnTileClickListener mListener;
     RecyclerView recyclerView;
+
 
     public TilesFragment() {
         // Required empty public constructor
@@ -71,9 +73,6 @@ public class TilesFragment extends Fragment implements Parcelable{
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             recyclerView = (RecyclerView) view;
-
-       //     TilesLayoutManager manager = new TilesLayoutManager();
-
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             Display display = getActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
@@ -96,15 +95,6 @@ public class TilesFragment extends Fragment implements Parcelable{
             mListener = (OnTileClickListener) context;
         }
 
-/*        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-*/
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -120,17 +110,6 @@ public class TilesFragment extends Fragment implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
 
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnTileClickListener {
 
         void startPostActivity(int clickPosition, ArrayList<Post> posts);

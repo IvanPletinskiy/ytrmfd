@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import android.widget.LinearLayout;
 
 import com.handen.trends.PostComparator;
@@ -140,15 +141,12 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         //биндим плитки(устанавливаем название)
         holder.bindTiles();
     }
-
     private void generateRows() {
         //Сортируем посты
         sortPosts();
         //Заполняем созданные ряды постами
         fillPatternsWithPosts();
-
     }
-
     private void sortPosts() {
         //Для каждого поста высчитываем вес и знак(+ или -)
         calculateAndSetPostWeight();
