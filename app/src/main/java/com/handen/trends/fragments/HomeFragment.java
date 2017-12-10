@@ -1,6 +1,8 @@
 package com.handen.trends.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -11,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.handen.trends.R;
-import com.handen.trends.adapters.TabAdapter;
+import com.handen.trends.WritePostActivity;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class HomeFragment extends NavigationFragment {
 
     private ArrayList<Fragment> fragments;
     private ArrayList<String> titles;
+    private FloatingActionButton fab;
 
     public HomeFragment() {
     }
@@ -75,6 +78,15 @@ public class HomeFragment extends NavigationFragment {
         ((AppCompatActivity) getActivity())
                 .getSupportActionBar()
                 .setTitle(R.string.main);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab_goto_write_post_activity);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WritePostActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 }

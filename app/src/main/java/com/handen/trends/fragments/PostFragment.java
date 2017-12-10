@@ -4,6 +4,7 @@ package com.handen.trends.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,6 @@ import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.userActivity.UserProfileActivity;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
 
@@ -50,7 +50,8 @@ public class PostFragment extends Fragment {
     public static PostFragment newInstance(Post post) {
         PostFragment fragment = new PostFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_POST, (Serializable) post);
+
+        args.putParcelable(ARGS_POST, (Parcelable) post);
 
         fragment.setArguments(args);
         return fragment;
@@ -60,7 +61,7 @@ public class PostFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            post = (Post) getArguments().getSerializable(ARGS_POST);
+            post = (Post) getArguments().getParcelable(ARGS_POST);
             userId = post.getUserId();
         }
     }
@@ -79,7 +80,8 @@ public class PostFragment extends Fragment {
 
         dateTextView = (TextView) view.findViewById(R.id._text_view_date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
-        dateTextView.setText(dateFormat.format(post.getCreationDate()));
+        dateTextView.setText(dateFormat.format(post.getPostDate()));
+      
         postTextTextView = (TextView) view.findViewById(R.id.text_view_post_text);
         postTextTextView.setText(post.getText());
 
