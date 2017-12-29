@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.handen.trends.R;
 import com.handen.trends.WritePostActivity;
-import com.handen.trends.adapters.TabAdapter;
 
 import java.util.ArrayList;
 
@@ -79,7 +78,6 @@ public class HomeFragment extends NavigationFragment {
         ((AppCompatActivity) getActivity())
                 .getSupportActionBar()
                 .setTitle(R.string.main);
-
         fab = (FloatingActionButton) view.findViewById(R.id.fab_goto_write_post_activity);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +86,7 @@ public class HomeFragment extends NavigationFragment {
                 startActivity(intent);
             }
         });
+
 
     }
 }
