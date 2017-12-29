@@ -23,9 +23,7 @@ import static com.handen.trends.ClientInterface.getPosts;
 import static com.handen.trends.ClientInterface.getSubscribedPosts;
 import static com.handen.trends.ClientInterface.getUser;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationFragment.OnNavigationItemClick,
-        TilesFragment.OnTileClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationFragment.OnNavigationItemClick, TilesFragment.OnTileClickListener {
 
     private CoordinatorLayout fragmentHostCoordinatorLayout;
 
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    @SuppressWarnings ("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -69,34 +67,41 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.main_nav) {
             displayFragment(homeFragment, TAG_HOME);
         }
-        else
+        else {
             if (id == R.id.liked_nav) {
 
             }
-            else
+            else {
                 if (id == R.id.myProfile_nav) {
                     displayFragment(myProfileFragment, TAG_MY_PROFILE);
                 }
-                else
+                else {
                     if (id == R.id.shop_nav) {
 
                     }
-                    else
-                        if(id == R.id.bugReport_nav) {
+                    else {
+                        if (id == R.id.bugReport_nav) {
 
                         }
-                        else
-                            if(id == R.id.logout_nav) {
+                        else {
+                            if (id == R.id.logout_nav) {
 
                             }
-                            else
-                               if (id == R.id.nav_share) {
+                            else {
+                                if (id == R.id.nav_share) {
 
-                               }
-                               else
+                                }
+                                else {
                                     if (id == R.id.nav_send) {
 
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -109,22 +114,14 @@ public class MainActivity extends AppCompatActivity
     public void displayFragment(Fragment fragment, String TAG) {
         Fragment currentFragment = MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_host_coordinator_layout);
 
-        if(currentFragment == null || TAG.equals(TAG_HOME)) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack(TAG)
-                    .replace(R.id.fragment_host_coordinator_layout, fragment, TAG)
-                    .commit();
+        if (currentFragment == null || TAG.equals(TAG_HOME)) {
+            getSupportFragmentManager().beginTransaction().addToBackStack(TAG).replace(R.id.fragment_host_coordinator_layout, fragment, TAG).commit();
             return;
 
         }
 
         if (!TAG.equals(currentFragment.getTag())) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack(TAG)
-                    .replace(R.id.fragment_host_coordinator_layout, fragment, TAG)
-                    .commit();
+            getSupportFragmentManager().beginTransaction().addToBackStack(TAG).replace(R.id.fragment_host_coordinator_layout, fragment, TAG).commit();
         }
 
     }

@@ -14,15 +14,17 @@ public class PostComparator implements Comparator<Post> {
     public int compare(Post post1, Post post2) {
         double post1Weight = post1.getWeight();
         double post2Weight = post2.getWeight();
-
-
         //Если первый меньше второго, возвращаем -1, иначе 0, иначе 1
-        if(post1Weight > post2Weight)
+        if (post1Weight > post2Weight) {
             return -1;
-        else
-            if (post2Weight > post1Weight)
+        }
+        else {
+            if (post2Weight > post1Weight) {
                 return 1;
-            else
+            }
+            else {
                 return 0;
+            }
+        }
     }
 }

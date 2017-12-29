@@ -6,7 +6,7 @@
     android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.handen.trends.WritePostActivity">
+    tools:context="com.handen.trends.EditPostActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="123"/>
+                android:text="Пустой название"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -38,6 +38,7 @@
 
         <EditText
             android:id="@+id/edit_text_post_text"
+            android:text="Пустой текст"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -64,16 +65,10 @@
             android:layout_height="wrap_content"
             />
 
-        <Switch
-            android:id="@+id/switch_is24hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Выложить на 24 часа"/>
-
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_write_post"
+        android:id="@+id/fab_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

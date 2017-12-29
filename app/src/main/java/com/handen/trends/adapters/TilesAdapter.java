@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.handen.trends.ClientInterface;
 import com.handen.trends.PostComparator;
 import com.handen.trends.R;
 import com.handen.trends.data.Post;
@@ -26,11 +27,12 @@ import java.util.Date;
 
 /**
  * @author Vanya
- * Created by Vanya on 15.10.2017.
- *
- * Класс-адаптер, отвечающий за сортировку постов, их распределение по рядам и создание ViewHolder ов
+ *         Created by Vanya on 15.10.2017.
+ *         <p>
+ *         Класс-адаптер, отвечающий за сортировку постов, их распределение по рядам и создание ViewHolder ов
  */
 public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> {
+
     /**
      * Список постов
      */
@@ -57,7 +59,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
         this.posts = posts;
         this.mListener = listener;
         //Высота ячейки - 1/6 ширины экрана
-        cellHeight = recyclerWidth / 6;
+        cellHeight = (float) (recyclerWidth / 6.0);
         //Генерируем ряды
         generateRows();
     }
@@ -231,12 +233,9 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     private int getPositiveCount(Post p1, Post p2, Post p3) {
         //Считаем кол-во положительных постов
         int count = 0;
-        if (p1.isPositive())
-            count++;
-        if (p2.isPositive())
-            count++;
-        if (p3.isPositive())
-            count++;
+        if (p1.isPositive()) count++;
+        if (p2.isPositive()) count++;
+        if (p3.isPositive()) count++;
         return count;
     }
 
@@ -298,6 +297,7 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     mListener.startPostActivity(clickPosition, posts);
+                    ClientInterface.viewPost(posts.get(clickPosition).getId());
                 }
             };
         }

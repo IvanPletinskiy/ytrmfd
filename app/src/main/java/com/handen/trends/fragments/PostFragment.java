@@ -9,14 +9,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.handen.trends.ClientInterface;
+import com.handen.trends.EditPostActivity;
 import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.userActivity.UserProfileActivity;
 
 import java.text.SimpleDateFormat;
+
+import static com.handen.trends.EditPostActivity.ARGS_CATEGORY;
+import static com.handen.trends.EditPostActivity.ARGS_TEXT;
+import static com.handen.trends.EditPostActivity.ARGS_TITLE;
 
 
 /**
@@ -36,8 +44,10 @@ public class PostFragment extends Fragment {
     private TextView dateTextView;
     private TextView postTextTextView;
     private TextView likesTextView;
+    private ImageView likesImageView;
     private TextView viewTextView;
     private LinearLayout userDescriptionLinearLayout;
+    private ImageButton editImageButton;
 
     SetPostTitleInterface mListener;
 
@@ -71,7 +81,6 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_post, container, false);
-
         mListener.setTitle(post.getTitle());
 
         nicknameTextView = (TextView) view.findViewById(R.id.text_view_nickname);
@@ -85,6 +94,17 @@ public class PostFragment extends Fragment {
 
         likesTextView = (TextView) view.findViewById(R.id.text_view_likes);
         likesTextView.setText(Long.toString(post.getLikes()));
+        likesImageView = (ImageView) view.findViewById(R.id.like_image_view);
+        LinearLayout likesView = (LinearLayout) view.findViewById(R.id.likes_view);
+        likesView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClientInterface.likePost(post.getId());
+                likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_filled));
+                likesTextView.setText(Long.toString(post.getLikes() + 1));
+            }
+        });
+
         viewTextView = (TextView) view.findViewById(R.id.text_view_views);
         viewTextView.setText(Long.toString(post.getViews()));
 
@@ -98,7 +118,29 @@ public class PostFragment extends Fragment {
             }
         });
 
+        editImageButton = (ImageButton) view.findViewById(R.id.edit_post_image_button);
+        if(post.getUserId() == ClientInterface.currentUserId)
+            editImageButton.setVisibility(View.VISIBLE);
+        else
+            editImageButton.setVisibility(View.INVISIBLE);
+
+        editImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), EditPostActivity.class);
+                intent.putExtra(ARGS_TITLE, post.getTitle());
+                intent.putExtra(ARGS_TEXT, post.getText());
+                intent.putExtra(ARGS_CATEGORY, post.getCategory());
+                startActivityForResult(intent, 1);
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -112,7 +154,6 @@ public class PostFragment extends Fragment {
 
     public interface SetPostTitleInterface {
         void setTitle(String postTitle);
-
     }
 
 }

@@ -22,7 +22,7 @@ public class Post implements Parcelable {
     private long id;
     private long userId;
     private String title;
-    private ArrayList<Category> categories;
+//    private ArrayList<Category> categories;
     private Category category;
     private String text;
     private ArrayList<String> tags;
@@ -35,9 +35,9 @@ public class Post implements Parcelable {
 
 
 
-    public Post(String title, ArrayList<Category> categories, String text, ArrayList<String> tags, boolean is24hours, long id, long userId, long views, long likes) {
+    public Post(String title, Category category, String text, ArrayList<String> tags, boolean is24hours, long id, long userId, long views, long likes) {
         this.title = title;
-        this.categories = categories;
+        this.category = category;
         this.text = text;
         this.tags = tags;
         this.is24hours = is24hours;
@@ -52,7 +52,7 @@ public class Post implements Parcelable {
 
     public Post(String title, Category category, String text, ArrayList<String> tags, boolean is24hours, long id, long userId) {
         this.title = title;
-        this.categories = categories;
+        this.category = category;
         this.text = text;
         this.tags = tags;
         this.is24hours = is24hours;
@@ -119,6 +119,14 @@ public class Post implements Parcelable {
 
     public void setLikes(long likes) {
         this.likes = likes;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

@@ -132,7 +132,6 @@ public class TilesFragment extends Fragment implements Parcelable{
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnTileClickListener {
-
         void startPostActivity(int clickPosition, ArrayList<Post> posts);
     }
 }

@@ -19,15 +19,17 @@ public class ClientInterface {
     public static ArrayList<User> availableUsers;
     public static ArrayList<Comment> availableComments;
     public static int lastPostId = 49;
-    public static int currentUserId = 0;
+    public static int currentUserId = 1;
 
     public static final int POST_BONUS = 25;
     public static final float POST_IS24BONUS = 1.5f;
 
     static {
         availablePosts = new ArrayList<>();
-        ArrayList<Category> categories = new ArrayList<>();
-        categories.add(new Category("Обо всём"));
+       // ArrayList<Category> categories = new ArrayList<>();
+       // categories.add(new Category("Обо всём"));
+        Category category = new Category("Обо всём");
+
  /*       availablePosts.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 0,0));
         availablePosts.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 0,0));
         availablePosts.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 0,0));
@@ -113,7 +115,7 @@ public class ClientInterface {
 
         for(int i = 0; i < 20 ; i ++) {
             int random = (int)(Math.random() * 100);
-            availablePosts.add(new Post(Integer.toString(random), categories, Integer.toString(random),
+            availablePosts.add(new Post(Integer.toString(random), category, Integer.toString(random),
                     new ArrayList<>(Arrays.asList(Integer.toString(random))), true, 24 + i, 1, random, random));
         }
 
@@ -166,7 +168,7 @@ public class ClientInterface {
     static public void viewPost(long postId) {
         for(Post post : availablePosts) {
             if(post.getId() == postId) {
-                post.setViews(post.getViews() + 1);
+                post.setViews(post.getViews()+ 1);
             }
         }
     }
