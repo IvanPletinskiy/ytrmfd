@@ -129,6 +129,14 @@ public class Post implements Parcelable {
         this.category = category;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public int describeContents() {
         return 0;

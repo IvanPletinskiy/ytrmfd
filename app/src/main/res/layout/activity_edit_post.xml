@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_layout"
+    android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.handen.trends.EditPostActivity">
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/edit_text_title"
+                android:id="@+id/title_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title"
@@ -28,7 +29,6 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:text="Пустой название"/>
-
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -37,7 +37,7 @@
             android:text="@string/text"/>
 
         <EditText
-            android:id="@+id/edit_text_post_text"
+            android:id="@+id/post_text_edit_text"
             android:text="Пустой текст"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/categories"/>
+            android:text="@string/category"/>
 
         <EditText
             android:id="@+id/edit_text_category"

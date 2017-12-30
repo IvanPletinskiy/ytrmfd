@@ -144,7 +144,6 @@ public class ClientInterface {
     }
 
     static public ArrayList<Post> getSubscribedPosts() {
-
         return availablePosts;
     }
 
@@ -169,6 +168,22 @@ public class ClientInterface {
         for(Post post : availablePosts) {
             if(post.getId() == postId) {
                 post.setViews(post.getViews()+ 1);
+            }
+        }
+    }
+    static public void deletePost(long postId) {
+        for(Post post : availablePosts) {
+            if(post.getId() == postId) {
+                availablePosts.remove(post);
+            }
+        }
+    }
+    //TODO 30.12.2017 Добавить Category и Tags в этот метод
+    static public void updatePost(long postId, String title, String text) {
+        for(Post post : availablePosts) {
+            if(post.getId() == postId) {
+                post.setTitle(title);
+                post.setText(text);
             }
         }
     }

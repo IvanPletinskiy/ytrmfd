@@ -15,23 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.handen.trends.ClientInterface;
-import com.handen.trends.EditPostActivity;
 import com.handen.trends.R;
 import com.handen.trends.data.Post;
 import com.handen.trends.userActivity.UserProfileActivity;
 
 import java.text.SimpleDateFormat;
-
-import static com.handen.trends.EditPostActivity.ARGS_CATEGORY;
-import static com.handen.trends.EditPostActivity.ARGS_TEXT;
-import static com.handen.trends.EditPostActivity.ARGS_TITLE;
-
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PostFragment extends Fragment {
 
     private static final String ARGS_POST = "post";
@@ -115,7 +103,7 @@ public class PostFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-                intent.putExtra(ARGS_USER_ID, userId);
+                intent.putExtra(ARGS_USER_ID, post.getUserId());
                 startActivity(intent);
             }
         });
@@ -129,11 +117,7 @@ public class PostFragment extends Fragment {
         editImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditPostActivity.class);
-                intent.putExtra(ARGS_TITLE, post.getTitle());
-                intent.putExtra(ARGS_TEXT, post.getText());
-                intent.putExtra(ARGS_CATEGORY, post.getCategory());
-                startActivityForResult(intent, 1);
+                mListener.startEditionActivity(post);
             }
         });
 
@@ -156,6 +140,7 @@ public class PostFragment extends Fragment {
 
     public interface SetPostTitleInterface {
         void setTitle(String postTitle);
+        void startEditionActivity(Post post);
     }
 
 }

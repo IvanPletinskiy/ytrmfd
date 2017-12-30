@@ -1,9 +1,9 @@
 package com.handen.trends;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +16,17 @@ import com.handen.trends.fragments.PostFragment;
 
 import java.util.ArrayList;
 
-public class PostActivity extends AppCompatActivity implements PostFragment.SetPostTitleInterface{
+import static com.handen.trends.EditPostActivity.ARGS_POST;
+
+public class PostActivity extends AppCompatActivity implements PostFragment.SetPostTitleInterface {
 
     public static final String ARGS_POSTS = "posts";
     public static final String ARGS_POST_POSITION = "position";
+
+    public static final int REQUEST_CODE = 1;
+    public static final int RESULT_CODE_EDITED = 11;
+    public static final int RESULT_CODE_DELETED = 12;
+    public static final int RESULT_CODE_BACK = 10;
 
     private ViewPager mViewPager;
     private ImageButton mBackButton;
@@ -29,12 +36,12 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
     private FragmentStatePagerAdapter fragmentStatePagerAdapter;
 
     @Override
-    public void onCreate (Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
         ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(false); //не показываем иконку приложения
             actionBar.setDisplayShowTitleEnabled(false); // и заголовок тоже прячем
             actionBar.setDisplayShowCustomEnabled(true);
@@ -67,19 +74,6 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
         fragmentStatePagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public int getCount() {
-                return 0;
-            }
-        };
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
-            @Override
-            public Fragment getItem(int position) {
                 return PostFragment.newInstance(posts.get(position));
             }
 
@@ -87,14 +81,48 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
             public int getCount() {
                 return posts.size();
             }
-        });
+        };
+
+        mViewPager.setAdapter(fragmentStatePagerAdapter);
 
         mViewPager.setCurrentItem(postPosition);
-
     }
 
     @Override
     public void setTitle(String postTitle) {
         mPostTitleTextView.setText(postTitle);
+    }
+
+    @Override
+    public void startEditionActivity(Post post) {
+        Intent intent = new Intent(this, EditPostActivity.class);
+        intent.putExtra(ARGS_POST, post);
+        //intent.putExtra(ARGS_TITLE, post.getTitle());
+        //intent.putExtra(ARGS_TEXT, post.getText());
+        //intent.putExtra(ARGS_CATEGORY, post.getCategory());
+
+        startActivityForResult(intent, posts.indexOf(post));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case RESULT_CODE_BACK:
+                System.out.println("BACK");
+                break;
+            case RESULT_CODE_DELETED:
+                posts.remove(requestCode);
+                fragmentStatePagerAdapter.notifyDataSetChanged();
+                System.out.println("DELETED");
+
+                break;
+            case RESULT_CODE_EDITED:
+                fragmentStatePagerAdapter.notifyDataSetChanged();
+
+                System.out.println("EDITED");
+                break;
+        }
     }
 }

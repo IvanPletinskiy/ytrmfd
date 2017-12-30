@@ -2,7 +2,7 @@
     <string name="app_name">Trends</string>
     <string name="title">Название</string>
     <string name="text">Текст</string>
-    <string name="categories">Категории</string>
+    <string name="category">Категория</string>
     <string name="tags">Тэги</string>
     <string name="newPost">Новый тренд</string>
     <string name="confirmation">Подтверждение</string>
@@ -15,6 +15,10 @@
     <string name="totalPosts">Всего постов: </string>
     <string name="totalLikes">Всего лайков: </string>
     <string name="editing">Редактирование</string>
+    <string name="doYouWontToDeleteTrend">Вы действительно хотите удалить этот тренд?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="deleting">Удаление</string>
 
     <string name="world">Мир</string>
     <string name="subscribtions">Подписки</string>
@@ -64,7 +68,6 @@
     <string name="name">Fullname</string>
     <string name="title_activity_delete_me">Sign in</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

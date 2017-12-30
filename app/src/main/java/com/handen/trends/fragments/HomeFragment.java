@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.handen.trends.R;
 import com.handen.trends.WritePostActivity;
+import com.handen.trends.adapters.TabAdapter;
 
 import java.util.ArrayList;
 

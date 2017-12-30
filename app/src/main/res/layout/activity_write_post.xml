@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/categories"/>
+            android:text="@string/category"/>
 
         <EditText
             android:id="@+id/edit_text_category"

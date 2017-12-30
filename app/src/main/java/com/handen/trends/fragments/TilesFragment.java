@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * Use the {@link TilesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TilesFragment extends Fragment implements Parcelable{
+public class TilesFragment extends Fragment implements Parcelable {
 
     private static final String ARGS_POSTS = "posts";
     private ArrayList<Post> posts;
@@ -65,8 +65,7 @@ public class TilesFragment extends Fragment implements Parcelable{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_tiles, container, false);
 
@@ -94,23 +93,23 @@ public class TilesFragment extends Fragment implements Parcelable{
         if (context instanceof OnTileClickListener) {
             mListener = (OnTileClickListener) context;
         }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+        @Override public void onDetach () {
+            super.onDetach();
+            mListener = null;
+        }
+
+        @Override public int describeContents () {
+            return 0;
+        }
+
+        @Override public void writeToParcel (Parcel dest,int flags){
+
+        }
+        public interface OnTileClickListener {
+
+            void startPostActivity(int clickPosition, ArrayList<Post> posts);
+        }
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
-    public interface OnTileClickListener {
-        void startPostActivity(int clickPosition, ArrayList<Post> posts);
-    }
-}
