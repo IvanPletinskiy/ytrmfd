@@ -20,6 +20,7 @@ import com.handen.trends.data.Post;
 import com.handen.trends.userActivity.UserProfileActivity;
 
 import java.text.SimpleDateFormat;
+
 public class PostFragment extends Fragment {
 
     private static final String ARGS_POST = "post";
@@ -36,9 +37,7 @@ public class PostFragment extends Fragment {
     private TextView viewTextView;
     private LinearLayout userDescriptionLinearLayout;
     private ImageButton editImageButton;
-
     SetPostTitleInterface mListener;
-
 
     public PostFragment() {
         // Required empty public constructor
@@ -48,7 +47,6 @@ public class PostFragment extends Fragment {
     public static PostFragment newInstance(Post post) {
         PostFragment fragment = new PostFragment();
         Bundle args = new Bundle();
-
         args.putParcelable(ARGS_POST, (Parcelable) post);
 
         fragment.setArguments(args);
@@ -66,8 +64,7 @@ public class PostFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_post, container, false);
         mListener.setTitle(post.getTitle());
@@ -78,7 +75,7 @@ public class PostFragment extends Fragment {
         dateTextView = (TextView) view.findViewById(R.id._text_view_date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
         dateTextView.setText(dateFormat.format(post.getPostDate()));
-      
+
         postTextTextView = (TextView) view.findViewById(R.id.text_view_post_text);
         postTextTextView.setText(post.getText());
 
@@ -89,9 +86,16 @@ public class PostFragment extends Fragment {
         likesView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClientInterface.likePost(post.getId());
-                likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_filled));
-                likesTextView.setText(Long.toString(post.getLikes() + 1));
+                if (ClientInterface.isLiked(post.getId())) {
+                    ClientInterface.unlikePost(post.getId());
+                    likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+                    likesTextView.setText(Long.toString(post.getLikes()));
+                }
+                else {
+                    ClientInterface.likePost(post.getId());
+                    likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_filled));
+                    likesTextView.setText(Long.toString(post.getLikes() + 1));
+                }
             }
         });
 
@@ -108,11 +112,17 @@ public class PostFragment extends Fragment {
             }
         });
 
+        if (ClientInterface.isLiked(post.getId())) {
+            likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_filled));
+        }
+
         editImageButton = (ImageButton) view.findViewById(R.id.edit_post_image_button);
-        if(post.getUserId() == ClientInterface.currentUserId)
+        if (post.getUserId() == ClientInterface.currentUserId) {
             editImageButton.setVisibility(View.VISIBLE);
-        else
+        }
+        else {
             editImageButton.setVisibility(View.INVISIBLE);
+        }
 
         editImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,8 +140,7 @@ public class PostFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof SetPostTitleInterface) {
             mListener = (SetPostTitleInterface) context;
@@ -139,7 +148,9 @@ public class PostFragment extends Fragment {
     }
 
     public interface SetPostTitleInterface {
+
         void setTitle(String postTitle);
+
         void startEditionActivity(Post post);
     }
 

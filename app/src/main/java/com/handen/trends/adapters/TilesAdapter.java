@@ -289,13 +289,14 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
             }
         }
 
-        private View.OnClickListener createTileOnClickListener(final int clickPosition) {
+        private View.OnClickListener createTileOnClickListener(final int clickPos) {
             //Создаём onClickListener для каждой плитки, по нажатию открывается PostActivity
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.startPostActivity(clickPosition, posts);
-                    ClientInterface.viewPost(posts.get(clickPosition).getId());
+                    mListener.startPostActivity(clickPos, posts);
+                    if(!ClientInterface.isViewed(posts.get(clickPos).getId()))
+                        ClientInterface.viewPost(posts.get(clickPos).getId());
                 }
             };
         }

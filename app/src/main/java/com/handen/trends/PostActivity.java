@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import static com.handen.trends.EditPostActivity.ARGS_POST;
 
 public class PostActivity extends AppCompatActivity implements PostFragment.SetPostTitleInterface {
-
     public static final String ARGS_POSTS = "posts";
     public static final String ARGS_POST_POSITION = "position";
 
@@ -66,7 +65,6 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
             }
         });
 
-
         postPosition = getIntent().getIntExtra(ARGS_POST_POSITION, 0);
         posts = (ArrayList<Post>) getIntent().getSerializableExtra(ARGS_POSTS);
 
@@ -82,7 +80,6 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
                 return posts.size();
             }
         };
-
         mViewPager.setAdapter(fragmentStatePagerAdapter);
 
         mViewPager.setCurrentItem(postPosition);
@@ -100,14 +97,12 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
         //intent.putExtra(ARGS_TITLE, post.getTitle());
         //intent.putExtra(ARGS_TEXT, post.getText());
         //intent.putExtra(ARGS_CATEGORY, post.getCategory());
-
         startActivityForResult(intent, posts.indexOf(post));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         switch (resultCode) {
             case RESULT_CODE_BACK:
                 System.out.println("BACK");

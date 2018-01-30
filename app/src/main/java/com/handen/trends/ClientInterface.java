@@ -8,6 +8,8 @@ import com.handen.trends.data.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Vanya on 21.10.2017.
@@ -15,9 +17,17 @@ import java.util.Date;
 
 public class ClientInterface {
 
-    public static ArrayList<Post> availablePosts;
-    public static ArrayList<User> availableUsers;
-    public static ArrayList<Comment> availableComments;
+    public static ArrayList<Post> postsTable;
+    public static ArrayList<User> usersTable;
+    public static ArrayList<Comment> commentsTable;
+    /**
+     * Первый аргумент userId, второй postId
+     */
+    public static HashMap<Long, Long> likesTable = new HashMap<>();
+    /**
+     * Первый аргумент userId, второй postId
+     */
+    public static HashMap<Long, Long> viewsTable = new HashMap<>();
     public static int lastPostId = 49;
     public static int currentUserId = 1;
 
@@ -25,115 +35,113 @@ public class ClientInterface {
     public static final float POST_IS24BONUS = 1.5f;
 
     static {
-        availablePosts = new ArrayList<>();
+        postsTable = new ArrayList<>();
        // ArrayList<Category> categories = new ArrayList<>();
        // categories.add(new Category("Обо всём"));
         Category category = new Category("Обо всём");
 
- /*       availablePosts.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 0,0));
-        availablePosts.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 0,0));
-        availablePosts.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 0,0));
-        availablePosts.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения4", new ArrayList<>(Arrays.asList("день рожденья4")), false, 3, 1, 0,0));
-        availablePosts.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения5", new ArrayList<>(Arrays.asList("день рожденья5")), false, 4, 1, 0,0));
-        availablePosts.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения6", new ArrayList<>(Arrays.asList("день рожденья6")), false, 5, 2, 0,0));
-        availablePosts.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 0,0));
-        availablePosts.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения8", new ArrayList<>(Arrays.asList("день рожденья8")), false, 7, 2, 0,0));
-        availablePosts.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 0,0));
-        availablePosts.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 0,0));
-        availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 0,0));
-        availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 0,0));
+ /*       postsTable.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 0,0));
+        postsTable.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 0,0));
+        postsTable.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 0,0));
+        postsTable.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения4", new ArrayList<>(Arrays.asList("день рожденья4")), false, 3, 1, 0,0));
+        postsTable.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения5", new ArrayList<>(Arrays.asList("день рожденья5")), false, 4, 1, 0,0));
+        postsTable.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения6", new ArrayList<>(Arrays.asList("день рожденья6")), false, 5, 2, 0,0));
+        postsTable.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 0,0));
+        postsTable.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения8", new ArrayList<>(Arrays.asList("день рожденья8")), false, 7, 2, 0,0));
+        postsTable.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 0,0));
+        postsTable.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 0,0));
+        postsTable.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 0,0));
+        postsTable.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 0,0));
 
-        availablePosts.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения13", new ArrayList<>(Arrays.asList("день рожденья1")), false, 12, 1, 0,0));
-        availablePosts.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения14", new ArrayList<>(Arrays.asList("день рожденья2")), false, 13, 1, 0,0));
-        availablePosts.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения15", new ArrayList<>(Arrays.asList("день рожденья3")), false, 14, 1, 0,0));
-        availablePosts.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения16", new ArrayList<>(Arrays.asList("день рожденья4")), false, 15, 1, 0,0));
-        availablePosts.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения17", new ArrayList<>(Arrays.asList("день рожденья5")), false, 16, 1, 0,0));
-        availablePosts.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения18", new ArrayList<>(Arrays.asList("день рожденья6")), false, 17, 2, 0,0));
-        availablePosts.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения19", new ArrayList<>(Arrays.asList("день рожденья7")), false, 18, 2, 0,0));
-        availablePosts.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения20", new ArrayList<>(Arrays.asList("день рожденья8")), false, 19, 2, 0,0));
-        availablePosts.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения21", new ArrayList<>(Arrays.asList("день рожденья9")), false, 20, 2, 0,0));
-        availablePosts.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения22", new ArrayList<>(Arrays.asList("день рожденья10")), false, 21, 3, 0,0));
-        availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения23", new ArrayList<>(Arrays.asList("день рожденья11")), false, 22, 3, 0,0));
-        availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения24", new ArrayList<>(Arrays.asList("день рожденья12")), false, 23, 3, 0,0));
+        postsTable.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения13", new ArrayList<>(Arrays.asList("день рожденья1")), false, 12, 1, 0,0));
+        postsTable.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения14", new ArrayList<>(Arrays.asList("день рожденья2")), false, 13, 1, 0,0));
+        postsTable.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения15", new ArrayList<>(Arrays.asList("день рожденья3")), false, 14, 1, 0,0));
+        postsTable.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения16", new ArrayList<>(Arrays.asList("день рожденья4")), false, 15, 1, 0,0));
+        postsTable.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения17", new ArrayList<>(Arrays.asList("день рожденья5")), false, 16, 1, 0,0));
+        postsTable.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения18", new ArrayList<>(Arrays.asList("день рожденья6")), false, 17, 2, 0,0));
+        postsTable.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения19", new ArrayList<>(Arrays.asList("день рожденья7")), false, 18, 2, 0,0));
+        postsTable.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения20", new ArrayList<>(Arrays.asList("день рожденья8")), false, 19, 2, 0,0));
+        postsTable.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения21", new ArrayList<>(Arrays.asList("день рожденья9")), false, 20, 2, 0,0));
+        postsTable.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения22", new ArrayList<>(Arrays.asList("день рожденья10")), false, 21, 3, 0,0));
+        postsTable.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения23", new ArrayList<>(Arrays.asList("день рожденья11")), false, 22, 3, 0,0));
+        postsTable.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения24", new ArrayList<>(Arrays.asList("день рожденья12")), false, 23, 3, 0,0));
 
-        availablePosts.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 0,0));
-        availablePosts.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 0,0));
-        availablePosts.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 0,0));
-        availablePosts.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения4", new ArrayList<>(Arrays.asList("день рожденья4")), false, 3, 1, 0,0));
-        availablePosts.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения5", new ArrayList<>(Arrays.asList("день рожденья5")), false, 4, 1, 0,0));
-        availablePosts.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения6", new ArrayList<>(Arrays.asList("день рожденья6")), false, 5, 2, 0,0));
-        availablePosts.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 0,0));
-        availablePosts.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения8", new ArrayList<>(Arrays.asList("день рожденья8")), false, 7, 2, 0,0));
-        availablePosts.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 0,0));
-        availablePosts.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 0,0));
-        availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 0,0));
-        availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 0,0));
+        postsTable.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 0,0));
+        postsTable.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 0,0));
+        postsTable.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 0,0));
+        postsTable.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения4", new ArrayList<>(Arrays.asList("день рожденья4")), false, 3, 1, 0,0));
+        postsTable.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения5", new ArrayList<>(Arrays.asList("день рожденья5")), false, 4, 1, 0,0));
+        postsTable.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения6", new ArrayList<>(Arrays.asList("день рожденья6")), false, 5, 2, 0,0));
+        postsTable.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 0,0));
+        postsTable.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения8", new ArrayList<>(Arrays.asList("день рожденья8")), false, 7, 2, 0,0));
+        postsTable.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 0,0));
+        postsTable.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 0,0));
+        postsTable.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 0,0));
+        postsTable.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 0,0));
 
-        availablePosts.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения13", new ArrayList<>(Arrays.asList("день рожденья1")), false, 12, 1, 0,0));
-        availablePosts.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения14", new ArrayList<>(Arrays.asList("день рожденья2")), false, 13, 1, 0,0));
-        availablePosts.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения15", new ArrayList<>(Arrays.asList("день рожденья3")), false, 14, 1, 0,0));
-        availablePosts.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения16", new ArrayList<>(Arrays.asList("день рожденья4")), false, 15, 1, 0,0));
-        availablePosts.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения17", new ArrayList<>(Arrays.asList("день рожденья5")), false, 16, 1, 0,0));
-        availablePosts.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения18", new ArrayList<>(Arrays.asList("день рожденья6")), false, 17, 2, 0,0));
-        availablePosts.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения19", new ArrayList<>(Arrays.asList("день рожденья7")), false, 18, 2, 0,0));
-        availablePosts.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения20", new ArrayList<>(Arrays.asList("день рожденья8")), false, 19, 2, 0,0));
-        availablePosts.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения21", new ArrayList<>(Arrays.asList("день рожденья9")), false, 20, 2, 0,0));
-        availablePosts.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения22", new ArrayList<>(Arrays.asList("день рожденья10")), false, 21, 3, 0,0));
-        availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения23", new ArrayList<>(Arrays.asList("день рожденья11")), false, 22, 3, 0,0));
-        availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения24", new ArrayList<>(Arrays.asList("день рожденья12")), false, 23, 3, 0,0));
+        postsTable.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения13", new ArrayList<>(Arrays.asList("день рожденья1")), false, 12, 1, 0,0));
+        postsTable.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения14", new ArrayList<>(Arrays.asList("день рожденья2")), false, 13, 1, 0,0));
+        postsTable.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения15", new ArrayList<>(Arrays.asList("день рожденья3")), false, 14, 1, 0,0));
+        postsTable.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения16", new ArrayList<>(Arrays.asList("день рожденья4")), false, 15, 1, 0,0));
+        postsTable.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения17", new ArrayList<>(Arrays.asList("день рожденья5")), false, 16, 1, 0,0));
+        postsTable.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения18", new ArrayList<>(Arrays.asList("день рожденья6")), false, 17, 2, 0,0));
+        postsTable.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения19", new ArrayList<>(Arrays.asList("день рожденья7")), false, 18, 2, 0,0));
+        postsTable.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения20", new ArrayList<>(Arrays.asList("день рожденья8")), false, 19, 2, 0,0));
+        postsTable.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения21", new ArrayList<>(Arrays.asList("день рожденья9")), false, 20, 2, 0,0));
+        postsTable.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения22", new ArrayList<>(Arrays.asList("день рожденья10")), false, 21, 3, 0,0));
+        postsTable.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения23", new ArrayList<>(Arrays.asList("день рожденья11")), false, 22, 3, 0,0));
+        postsTable.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения24", new ArrayList<>(Arrays.asList("день рожденья12")), false, 23, 3, 0,0));
 
 */
 /*
-        availablePosts.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 800,800));
-        availablePosts.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 1000,1000));
+        postsTable.add(new Post("День рождения7", categories, "У меня сегодня дунь рождения7", new ArrayList<>(Arrays.asList("день рожденья7")), false, 6, 2, 800,800));
+        postsTable.add(new Post("День рождения9", categories, "У меня сегодня дунь рождения9", new ArrayList<>(Arrays.asList("день рожденья9")), false, 8, 2, 1000,1000));
 
-        availablePosts.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 100, 100));
-        availablePosts.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 200,200));
-        availablePosts.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 400,400));
-        availablePosts.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения4", new ArrayList<>(Arrays.asList("день рожденья4")), false, 3, 1, 500,500));
-        availablePosts.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения5", new ArrayList<>(Arrays.asList("день рожденья5")), false, 4, 1, 600,600));
-        availablePosts.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения6", new ArrayList<>(Arrays.asList("день рожденья6")), false, 5, 2, 700,700));
+        postsTable.add(new Post("День рождения1", categories, "У меня сегодня дунь рождения1", new ArrayList<>(Arrays.asList("день рожденья1")), false, 0, 1, 100, 100));
+        postsTable.add(new Post("День рождения2", categories, "У меня сегодня дунь рождения2", new ArrayList<>(Arrays.asList("день рожденья2")), false, 1, 1, 200,200));
+        postsTable.add(new Post("День рождения3", categories, "У меня сегодня дунь рождения3", new ArrayList<>(Arrays.asList("день рожденья3")), false, 2, 1, 400,400));
+        postsTable.add(new Post("День рождения4", categories, "У меня сегодня дунь рождения4", new ArrayList<>(Arrays.asList("день рожденья4")), false, 3, 1, 500,500));
+        postsTable.add(new Post("День рождения5", categories, "У меня сегодня дунь рождения5", new ArrayList<>(Arrays.asList("день рожденья5")), false, 4, 1, 600,600));
+        postsTable.add(new Post("День рождения6", categories, "У меня сегодня дунь рождения6", new ArrayList<>(Arrays.asList("день рожденья6")), false, 5, 2, 700,700));
 
-        availablePosts.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения8", new ArrayList<>(Arrays.asList("день рожденья8")), false, 7, 2, 900,900));
+        postsTable.add(new Post("День рождения8", categories, "У меня сегодня дунь рождения8", new ArrayList<>(Arrays.asList("день рожденья8")), false, 7, 2, 900,900));
 
-        availablePosts.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 1100,1100));
-        availablePosts.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 1200,1200));
-        availablePosts.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 1300,1300));
+        postsTable.add(new Post("День рождения10", categories, "У меня сегодня дунь рождения10", new ArrayList<>(Arrays.asList("день рожденья10")), false, 9, 3, 1100,1100));
+        postsTable.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 1200,1200));
+        postsTable.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 1300,1300));
 */
 
-        availableUsers = new ArrayList<>();
-        availableUsers.add(new User(1, 1, "Handen", new Date()));
-        availableUsers.get(0).setDescription("Это описание #1");
+        usersTable = new ArrayList<>();
+        usersTable.add(new User(1, 1, "Handen", new Date()));
+        usersTable.get(0).setDescription("Это описание #1");
 
-        availableUsers.add(new User(2, 2, "Handen2", new Date()));
-        availableUsers.get(1).setDescription("Это описание #2");
+        usersTable.add(new User(2, 2, "Handen2", new Date()));
+        usersTable.get(1).setDescription("Это описание #2");
 
-        availableUsers.add(new User(3, 3, "Handen3", new Date()));
-        availableUsers.get(2).setDescription("Это описание #3");
-        availableUsers.add(new User(2, 0, "God", new Date()));
-        availableUsers.get(2).setDescription("Одмен");
+        usersTable.add(new User(3, 3, "Handen3", new Date()));
+        usersTable.get(2).setDescription("Это описание #3");
+        usersTable.add(new User(2, 0, "God", new Date()));
+        usersTable.get(2).setDescription("Одмен");
 
         for(int i = 0; i < 20 ; i ++) {
             int random = (int)(Math.random() * 100);
-            availablePosts.add(new Post(Integer.toString(random), category, Integer.toString(random),
+            postsTable.add(new Post(Integer.toString(random), category, Integer.toString(random),
                     new ArrayList<>(Arrays.asList(Integer.toString(random))), true, 24 + i, 1, random, random));
         }
 
     }
 
     static public ArrayList<Post> getPosts(int region) {
-
         ArrayList<Post> ret = new ArrayList<>();
-
         //Если возвращаем посты для всех регионов
         if(region == 0) {
-            ret = availablePosts;
+            ret = postsTable;
         }
         else {
-            for (Post post : availablePosts) {
+            for (Post post : postsTable) {
                 long userId = post.getUserId();
 
-             //   User user = availableUsers.get((int) (userId)); //TODO происходит преобразование long в int
+             //   User user = usersTable.get((int) (userId)); //TODO происходит преобразование long в int
 
                 if (getUser(userId).getRegion() == region)
                     ret.add(post);
@@ -144,13 +152,13 @@ public class ClientInterface {
     }
 
     static public ArrayList<Post> getSubscribedPosts() {
-        return availablePosts;
+        return postsTable;
     }
 
     static public ArrayList<Post> getUserPosts(long userId) {
 
         ArrayList<Post> ret = new ArrayList<>();
-        for(Post post : availablePosts) {
+        for(Post post : postsTable) {
             if(post.getUserId() == userId)
                 ret.add(post);
         }
@@ -158,29 +166,66 @@ public class ClientInterface {
         return ret;
     }
     static public void likePost(long postId) {
-        for(Post post : availablePosts) {
+        for(Post post : postsTable) {
             if(post.getId() == postId) {
                 post.setLikes(post.getLikes() + 1);
             }
         }
+        likesTable.put((long) currentUserId, postId);
+    }
+
+    static public void unlikePost(long postId) {
+        for (Map.Entry<Long, Long> entry : likesTable.entrySet()) {
+            if(entry.getValue() == postId) {
+                // likesTable.remove(entry.getKey(), postId); //TODO необходим более высокий API lvl
+                likesTable.remove(entry.getKey());            //TODO нужно отлаживать, чтобы правильно удалялись
+                for(Post post : postsTable) {
+                    if(post.getId() == postId) {
+                        post.setLikes(post.getLikes() - 1);
+                    }
+                }
+            }
+
+        }
     }
     static public void viewPost(long postId) {
-        for(Post post : availablePosts) {
+        for(Post post : postsTable) {
             if(post.getId() == postId) {
                 post.setViews(post.getViews()+ 1);
             }
         }
+        viewsTable.put((long)currentUserId, postId);
     }
+
     static public void deletePost(long postId) {
-        for(Post post : availablePosts) {
+        for(Post post : postsTable) {
             if(post.getId() == postId) {
-                availablePosts.remove(post);
+                postsTable.remove(post);
             }
         }
     }
+
+    static public boolean isLiked(long postId) {
+        System.out.println("ClientInterface.isLiked(), userId:" + currentUserId);
+        for (Map.Entry<Long, Long> entry : likesTable.entrySet()) {
+            if(entry.getKey() == currentUserId)
+                if(entry.getValue() == postId)
+                    return true;
+        }
+        return false;
+    }
+    static public boolean isViewed(long postId) {
+        System.out.println("ClientInterface.isViewed(), userId:" + currentUserId);
+        for (Map.Entry<Long, Long> entry : likesTable.entrySet()) {
+            if(entry.getKey() == currentUserId)
+                if(entry.getValue() == postId)
+                    return true;
+        }
+        return false;
+    }
     //TODO 30.12.2017 Добавить Category и Tags в этот метод
     static public void updatePost(long postId, String title, String text) {
-        for(Post post : availablePosts) {
+        for(Post post : postsTable) {
             if(post.getId() == postId) {
                 post.setTitle(title);
                 post.setText(text);
@@ -217,7 +262,7 @@ public class ClientInterface {
 
     }
     static public void writePost(String title, Category category, String text, ArrayList<String> tags, boolean is24hours ) {
-        availablePosts.add(new Post(title, category, text, tags, is24hours, ++lastPostId, currentUserId));
+        postsTable.add(new Post(title, category, text, tags, is24hours, ++lastPostId, currentUserId));
     }
     static public String subscribe(int userId) {
         return "OK";
@@ -230,8 +275,8 @@ public class ClientInterface {
 
 /*    static public UserInformation getUserInformation(long userId) {
 
-        for (int i = 0; i < availableUsers.size(); i++) {
-            User user = availableUsers.get(i);
+        for (int i = 0; i < usersTable.size(); i++) {
+            User user = usersTable.get(i);
             if(user.getId() == userId);
                 return user.get;
         }
@@ -239,7 +284,7 @@ public class ClientInterface {
     */
 
     static public User getUser(long userId) {
-        for (User user : availableUsers) {
+        for (User user : usersTable) {
             if(user.getId() == userId)
                 return user;
         }
