@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 
 /**
  * Created by Vanya on 21.10.2017.
@@ -23,11 +23,12 @@ public class ClientInterface {
     /**
      * Первый аргумент userId, второй postId
      */
-    public static HashMap<Long, Long> likesTable = new HashMap<>();
+    public static HashMap<Long, HashSet<Long>> likesTable = new HashMap<>();
+
     /**
      * Первый аргумент userId, второй postId
      */
-    public static HashMap<Long, Long> viewsTable = new HashMap<>();
+    public static HashMap<Long, HashSet<Long>> viewsTable = new HashMap<>();
     public static int lastPostId = 49;
     public static int currentUserId = 1;
 
@@ -110,7 +111,6 @@ public class ClientInterface {
         postsTable.add(new Post("День рождения11", categories, "У меня сегодня дунь рождения11", new ArrayList<>(Arrays.asList("день рожденья11")), false, 10, 3, 1200,1200));
         postsTable.add(new Post("День рождения12", categories, "У меня сегодня дунь рождения12", new ArrayList<>(Arrays.asList("день рожденья12")), false, 11, 3, 1300,1300));
 */
-
         usersTable = new ArrayList<>();
         usersTable.add(new User(1, 1, "Handen", new Date()));
         usersTable.get(0).setDescription("Это описание #1");
@@ -128,7 +128,6 @@ public class ClientInterface {
             postsTable.add(new Post(Integer.toString(random), category, Integer.toString(random),
                     new ArrayList<>(Arrays.asList(Integer.toString(random))), true, 24 + i, 1, random, random));
         }
-
     }
 
     static public ArrayList<Post> getPosts(int region) {
@@ -140,13 +139,10 @@ public class ClientInterface {
         else {
             for (Post post : postsTable) {
                 long userId = post.getUserId();
-
              //   User user = usersTable.get((int) (userId)); //TODO происходит преобразование long в int
-
                 if (getUser(userId).getRegion() == region)
                     ret.add(post);
             }
-
         }
         return ret;
     }
@@ -156,7 +152,6 @@ public class ClientInterface {
     }
 
     static public ArrayList<Post> getUserPosts(long userId) {
-
         ArrayList<Post> ret = new ArrayList<>();
         for(Post post : postsTable) {
             if(post.getUserId() == userId)
@@ -166,35 +161,61 @@ public class ClientInterface {
         return ret;
     }
     static public void likePost(long postId) {
+        if(likesTable.containsKey((long)currentUserId)) {
+            likesTable.get((long)currentUserId).add(postId);
+        }
+        else {
+            HashSet<Long> set = new HashSet<>();
+            set.add(postId);
+            likesTable.put((long)currentUserId, set);
+        }
+
         for(Post post : postsTable) {
             if(post.getId() == postId) {
                 post.setLikes(post.getLikes() + 1);
             }
         }
-        likesTable.put((long) currentUserId, postId);
     }
 
     static public void unlikePost(long postId) {
-        for (Map.Entry<Long, Long> entry : likesTable.entrySet()) {
-            if(entry.getValue() == postId) {
-                // likesTable.remove(entry.getKey(), postId); //TODO необходим более высокий API lvl
-                likesTable.remove(entry.getKey());            //TODO нужно отлаживать, чтобы правильно удалялись
-                for(Post post : postsTable) {
-                    if(post.getId() == postId) {
-                        post.setLikes(post.getLikes() - 1);
-                    }
-                }
+        likesTable.get((long)currentUserId).remove(postId);
+        for(Post post : postsTable) {
+            if(post.getId() == postId) {
+                post.setLikes(post.getLikes() - 1);
             }
-
         }
     }
     static public void viewPost(long postId) {
+        if(viewsTable.containsKey((long)currentUserId)) {
+            viewsTable.get((long)currentUserId).add(postId);
+        }
+        else {
+            HashSet<Long> set = new HashSet<>();
+            set.add(postId);
+            viewsTable.put((long)currentUserId, set);
+        }
+
         for(Post post : postsTable) {
             if(post.getId() == postId) {
-                post.setViews(post.getViews()+ 1);
+                post.setViews(post.getViews() + 1);
             }
         }
-        viewsTable.put((long)currentUserId, postId);
+
+    }
+
+    static public boolean isLiked(long postId) {
+        boolean isFound = false;
+        if(likesTable.containsKey((long)currentUserId) &&
+                likesTable.get((long)currentUserId).contains(postId))
+            isFound = true;
+        return isFound;
+    }
+    static public boolean isViewed(long postId) {
+        boolean isFound = false;
+        if(viewsTable.containsKey((long)currentUserId) &&
+                viewsTable.get((long)currentUserId).contains(postId))
+            isFound = true;
+        return isFound;
     }
 
     static public void deletePost(long postId) {
@@ -203,25 +224,6 @@ public class ClientInterface {
                 postsTable.remove(post);
             }
         }
-    }
-
-    static public boolean isLiked(long postId) {
-        System.out.println("ClientInterface.isLiked(), userId:" + currentUserId);
-        for (Map.Entry<Long, Long> entry : likesTable.entrySet()) {
-            if(entry.getKey() == currentUserId)
-                if(entry.getValue() == postId)
-                    return true;
-        }
-        return false;
-    }
-    static public boolean isViewed(long postId) {
-        System.out.println("ClientInterface.isViewed(), userId:" + currentUserId);
-        for (Map.Entry<Long, Long> entry : likesTable.entrySet()) {
-            if(entry.getKey() == currentUserId)
-                if(entry.getValue() == postId)
-                    return true;
-        }
-        return false;
     }
     //TODO 30.12.2017 Добавить Category и Tags в этот метод
     static public void updatePost(long postId, String title, String text) {
@@ -271,8 +273,6 @@ public class ClientInterface {
     static public ArrayList<Category> getCategories() {
         return null;
     }
-
-
 /*    static public UserInformation getUserInformation(long userId) {
 
         for (int i = 0; i < usersTable.size(); i++) {
@@ -282,7 +282,6 @@ public class ClientInterface {
         }
     }
     */
-
     static public User getUser(long userId) {
         for (User user : usersTable) {
             if(user.getId() == userId)

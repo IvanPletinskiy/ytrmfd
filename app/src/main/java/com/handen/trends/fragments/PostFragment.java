@@ -48,7 +48,6 @@ public class PostFragment extends Fragment {
         PostFragment fragment = new PostFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARGS_POST, (Parcelable) post);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,7 +60,6 @@ public class PostFragment extends Fragment {
             userId = post.getUserId();
         }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,12 +87,14 @@ public class PostFragment extends Fragment {
                 if (ClientInterface.isLiked(post.getId())) {
                     ClientInterface.unlikePost(post.getId());
                     likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like));
+                    post.setLikes(post.getLikes() - 1);
                     likesTextView.setText(Long.toString(post.getLikes()));
                 }
                 else {
                     ClientInterface.likePost(post.getId());
                     likesImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_like_filled));
-                    likesTextView.setText(Long.toString(post.getLikes() + 1));
+                    post.setLikes(post.getLikes() + 1);
+                    likesTextView.setText(Long.toString(post.getLikes()));
                 }
             }
         });

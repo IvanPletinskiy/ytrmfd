@@ -295,8 +295,9 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     mListener.startPostActivity(clickPos, posts);
-                    if(!ClientInterface.isViewed(posts.get(clickPos).getId()))
+                    if(!ClientInterface.isViewed(posts.get(clickPos).getId())) {
                         ClientInterface.viewPost(posts.get(clickPos).getId());
+                    }
                 }
             };
         }
