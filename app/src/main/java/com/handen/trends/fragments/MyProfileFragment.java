@@ -23,9 +23,6 @@ import static com.handen.trends.ClientInterface.currentUserId;
 import static com.handen.trends.ClientInterface.getUser;
 import static com.handen.trends.ClientInterface.getUserPosts;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyProfileFragment extends NavigationFragment {
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -42,18 +39,16 @@ public class MyProfileFragment extends NavigationFragment {
     @SuppressWarnings("unused")
     public static MyProfileFragment newInstance() {
         MyProfileFragment fragment = new MyProfileFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+      //  Bundle args = new Bundle();
+      //  fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
         findView(view);
-
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         user = getUser(0);
@@ -79,11 +74,8 @@ public class MyProfileFragment extends NavigationFragment {
         for(Post post : userPosts) {
             totalLikes += post.getLikes();
         }
-
         return totalLikes;
     }
-
-
 
     @Override
     public void findView(View view) {
@@ -93,8 +85,6 @@ public class MyProfileFragment extends NavigationFragment {
 
         viewPager = (ViewPager) view.findViewById(R.id.view_pager_fragment_my_profile);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout_fragment_my_profile);
-
-        System.err.println("FindView");
 
     }
 }

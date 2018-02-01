@@ -218,6 +218,20 @@ public class ClientInterface {
         return isFound;
     }
 
+    static public ArrayList<Post> getLiked() {
+        ArrayList<Post> ret = new ArrayList<>();
+        HashSet<Long> set = likesTable.get((long)currentUserId);
+
+        for (Long postId : set) {
+            for (Post post : postsTable) {
+                if(postId == post.getId())
+                    ret.add(post);
+            }
+        }
+        return ret;
+    }
+
+
     static public void deletePost(long postId) {
         for(Post post : postsTable) {
             if(post.getId() == postId) {

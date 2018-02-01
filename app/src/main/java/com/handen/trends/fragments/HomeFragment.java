@@ -16,46 +16,63 @@ import com.handen.trends.WritePostActivity;
 import com.handen.trends.adapters.TabAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static com.handen.trends.ClientInterface.currentUserId;
+import static com.handen.trends.ClientInterface.getPosts;
+import static com.handen.trends.ClientInterface.getSubscribedPosts;
+import static com.handen.trends.ClientInterface.getUser;
 
 public class HomeFragment extends NavigationFragment {
     private static final String ARGS_FRAGMENTS = "fragments";
     private static final String ARGS_TITLES = "titles";
 
+    public static final int REQUEST_WRITE_POST = 10;
+    public static final int RESULT_CODE_WRITTEN = 11;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
     private TabAdapter pagerAdapter;
 
     private ArrayList<Fragment> fragments;
     private ArrayList<String> titles;
     private FloatingActionButton fab;
 
-    public static final int REQUEST_WRITE_POST = 10;
-
-    public static final int RESULT_CODE_WRITTEN = 11;
-
-
     public HomeFragment() {
 
     }
 
     @SuppressWarnings("unused")
-    public static HomeFragment newInstance(ArrayList<Fragment> fragments, ArrayList<String> titles) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARGS_FRAGMENTS, fragments);
-        args.putStringArrayList(ARGS_TITLES, titles);
-        fragment.setArguments(args);
+//        Bundle args = new Bundle();
+
+   //     args.putSerializable(ARGS_FRAGMENTS, fragments);
+  //      args.putStringArrayList(ARGS_TITLES, titles);
+//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            fragments = (ArrayList<Fragment>) getArguments().getSerializable(ARGS_FRAGMENTS);
-            titles = getArguments().getStringArrayList(ARGS_TITLES);
-        }
+  //      if (getArguments() != null) {
+  //          fragments = (ArrayList<Fragment>) getArguments().getSerializable(ARGS_FRAGMENTS);
+  //          titles = getArguments().getStringArrayList(ARGS_TITLES);
+  //      }
+
+        fragments = new ArrayList<>(Arrays.asList(
+                TilesFragment.newInstance(getPosts(0)),
+                TilesFragment.newInstance(getSubscribedPosts()),
+                TilesFragment.newInstance(getPosts(2))
+        ));
+
+        titles = new ArrayList<>(Arrays.asList(
+                getString(R.string.world),
+                getString(R.string.subscribtions),
+                getUser(currentUserId).getRegionTitle()
+        ));
+
     }
 
     @Override
@@ -85,6 +102,7 @@ public class HomeFragment extends NavigationFragment {
         viewPager= (ViewPager) view.findViewById(R.id.viewPager);
         pagerAdapter = new TabAdapter(fragments, titles,
                 getActivity().getSupportFragmentManager());
+        pagerAdapter.getItem(0);
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tbl_pages);
