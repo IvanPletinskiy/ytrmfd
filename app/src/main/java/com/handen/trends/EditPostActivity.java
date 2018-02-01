@@ -111,16 +111,13 @@ public class EditPostActivity extends AppCompatActivity {
         textEditText.setText(post.getText());
 
         doneFab = (FloatingActionButton) findViewById(R.id.fab_done);
-        doneFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CODE_EDITED);
-                long postId = post.getId();
-                String title = titleEditText.getText().toString();
-                String text = textEditText.getText().toString();
-                ClientInterface.updatePost(postId, title, text);
-                finish();
-            }
+        doneFab.setOnClickListener(v -> {
+            setResult(RESULT_CODE_EDITED);
+            long postId = post.getId();
+            String title = titleEditText.getText().toString();
+            String text = textEditText.getText().toString();
+            ClientInterface.updatePost(postId, title, text);
+            finish();
         });
     }
 }

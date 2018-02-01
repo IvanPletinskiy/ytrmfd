@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.handen.trends.ClientInterface.writePost;
+import static com.handen.trends.fragments.HomeFragment.RESULT_CODE_WRITTEN;
 
 public class WritePostActivity extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class WritePostActivity extends AppCompatActivity {
     private Switch is24hoursSwitch;
 
     private ImageButton backImageButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class WritePostActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setCustomView(R.layout.action_bar_write_post_activity);
         }
-
 
         titleEditText = (EditText) findViewById(R.id.edit_text_title);
         textEditText = (EditText) findViewById(R.id.edit_text_post_text);
@@ -81,18 +82,16 @@ public class WritePostActivity extends AppCompatActivity {
                 boolean is24hours = is24hoursSwitch.isChecked();
 
                 writePost(title, category, text, tags, is24hours);
-
+                setResult(RESULT_CODE_WRITTEN);
                 finish();
             }
         });
-
     }
 
     private void showExitAlertDialog() {
         new AlertDialog.Builder(WritePostActivity.this)
                 .setTitle(R.string.confirmation)
                 .setMessage(R.string.ifYouExit)
-
                 .setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
                                 finish();

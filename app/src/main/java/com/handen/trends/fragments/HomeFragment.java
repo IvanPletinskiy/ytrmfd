@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -25,13 +24,19 @@ public class HomeFragment extends NavigationFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private PagerAdapter pagerAdapter;
+    private TabAdapter pagerAdapter;
 
     private ArrayList<Fragment> fragments;
     private ArrayList<String> titles;
     private FloatingActionButton fab;
 
+    public static final int REQUEST_WRITE_POST = 10;
+
+    public static final int RESULT_CODE_WRITTEN = 11;
+
+
     public HomeFragment() {
+
     }
 
     @SuppressWarnings("unused")
@@ -54,15 +59,24 @@ public class HomeFragment extends NavigationFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_WRITE_POST) {
+            if (resultCode == RESULT_CODE_WRITTEN) {
+                //TODO сейчас обновляются все вкладки, возможно стоит обновлять только одну
+                pagerAdapter = new TabAdapter(fragments, titles, getActivity().getSupportFragmentManager());
+                viewPager.setAdapter(pagerAdapter);
+            }
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findView(view);
         return view;
-
     }
-
 
     @Override
     public void findView(View view) {
@@ -83,11 +97,9 @@ public class HomeFragment extends NavigationFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WritePostActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getContext(), WritePostActivity.class);
+                startActivityForResult(intent, REQUEST_WRITE_POST);
             }
         });
-
-
     }
 }

@@ -36,17 +36,10 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class TilesFragment extends Fragment implements Parcelable {
-
     private static final String ARGS_POSTS = "posts";
     private ArrayList<Post> posts;
     private OnTileClickListener mListener;
     RecyclerView recyclerView;
-
-
-    public TilesFragment() {
-        // Required empty public constructor
-    }
-
 
     public static TilesFragment newInstance(ArrayList<Post> posts) {
         TilesFragment fragment = new TilesFragment();
@@ -66,9 +59,7 @@ public class TilesFragment extends Fragment implements Parcelable {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_tiles, container, false);
-
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             recyclerView = (RecyclerView) view;
@@ -77,25 +68,21 @@ public class TilesFragment extends Fragment implements Parcelable {
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            int height = size.y;
             TilesAdapter tilesAdapter = new TilesAdapter(posts, mListener, width);
-
             recyclerView.setAdapter(tilesAdapter);
         }
-
         return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         if (context instanceof OnTileClickListener) {
             mListener = (OnTileClickListener) context;
         }
     }
 
-        @Override public void onDetach () {
+    @Override public void onDetach () {
             super.onDetach();
             mListener = null;
         }
@@ -108,7 +95,6 @@ public class TilesFragment extends Fragment implements Parcelable {
 
         }
         public interface OnTileClickListener {
-
             void startPostActivity(int clickPosition, ArrayList<Post> posts);
         }
     }

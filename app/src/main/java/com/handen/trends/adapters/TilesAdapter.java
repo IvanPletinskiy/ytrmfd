@@ -33,7 +33,6 @@ import java.util.Date;
  *         Класс-адаптер, отвечающий за сортировку постов, их распределение по рядам и создание ViewHolder ов
  */
 public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> {
-
     /**
      * Список постов
      */
@@ -54,11 +53,11 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
     /**
      * Слушатель нажатия на tile
      */
-    private TilesFragment.OnTileClickListener mListener;
+    private TilesFragment.OnTileClickListener clickListener;
 
     public TilesAdapter(ArrayList<Post> posts, TilesFragment.OnTileClickListener listener, int recyclerWidth) {
         this.posts = posts;
-        this.mListener = listener;
+        this.clickListener = listener;
         //Высота ячейки - 1/6 ширины экрана
         cellHeight = (float) (recyclerWidth / 6.0);
         //Генерируем ряды
@@ -291,15 +290,17 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
 
         private View.OnClickListener createTileOnClickListener(final int clickPos) {
             //Создаём onClickListener для каждой плитки, по нажатию открывается PostActivity
+
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.startPostActivity(clickPos, posts);
+                    clickListener.startPostActivity(clickPos, posts);
                     if(!ClientInterface.isViewed(posts.get(clickPos).getId())) {
                         ClientInterface.viewPost(posts.get(clickPos).getId());
                     }
                 }
             };
+
         }
     }
 }

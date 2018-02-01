@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
         setContentView(R.layout.activity_main);
 
         fragmentHostCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.fragment_host_coordinator_layout);
-
+        //TODO 01.02.18 убрать fragments, titles из конструктора HomeFragment
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TilesFragment.newInstance(getPosts(0)));
         fragments.add(TilesFragment.newInstance(getSubscribedPosts()));
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
         myProfileFragment = MyProfileFragment.newInstance();
 
         displayFragment(homeFragment, TAG_HOME);
-
     }
 
     @SuppressWarnings ("StatementWithEmptyBody")
@@ -102,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
                 }
             }
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

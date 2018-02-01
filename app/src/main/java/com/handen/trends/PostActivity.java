@@ -115,7 +115,6 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
                 break;
             case RESULT_CODE_EDITED:
                 fragmentStatePagerAdapter.notifyDataSetChanged();
-
                 System.out.println("EDITED");
                 break;
         }
