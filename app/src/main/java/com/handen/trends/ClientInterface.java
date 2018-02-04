@@ -222,6 +222,9 @@ public class ClientInterface {
         ArrayList<Post> ret = new ArrayList<>();
         HashSet<Long> set = likesTable.get((long)currentUserId);
 
+        if(set == null || set.size() == 0)
+            return ret;
+
         for (Long postId : set) {
             for (Post post : postsTable) {
                 if(postId == post.getId())

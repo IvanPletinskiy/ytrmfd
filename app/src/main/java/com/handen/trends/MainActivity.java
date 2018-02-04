@@ -2,7 +2,6 @@ package com.handen.trends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,32 +11,23 @@ import android.view.MenuItem;
 
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.HomeFragment;
+import com.handen.trends.fragments.LikedFragment;
 import com.handen.trends.fragments.MyProfileFragment;
 import com.handen.trends.fragments.NavigationFragment;
 import com.handen.trends.fragments.TilesFragment;
 
 import java.util.ArrayList;
 
-import static com.handen.trends.ClientInterface.getLiked;
-
 public class MainActivity extends AppCompatActivity implements NavigationFragment.OnNavigationItemClick, TilesFragment.OnTileClickListener {
 
-    private CoordinatorLayout fragmentHostCoordinatorLayout;
-
     private HomeFragment homeFragment;
+    private LikedFragment likedFragment;
     private MyProfileFragment myProfileFragment;
-
-    private static final String TAG_HOME = "home";
-    private static final String TAG_MY_PROFILE = "myProfile";
-
-    private static final String TAG_LIKED = "liked";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        fragmentHostCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.fragment_host_coordinator_layout);
 /*
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TilesFragment.newInstance(getPosts(0)));
@@ -50,35 +40,33 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
         titles.add(getUser(currentUserId).getRegionTitle());
         */
 
-//        homeFragment = HomeFragment.newInstance(fragments, titles);
+        //        homeFragment = HomeFragment.newInstance(fragments, titles);
         homeFragment = HomeFragment.newInstance();
         myProfileFragment = MyProfileFragment.newInstance();
 
-        displayFragment(homeFragment, TAG_HOME);
+        displayFragment(homeFragment, HomeFragment.TAG_HOME);
     }
 
     @SuppressWarnings ("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         switch (id) {
-            case R.id.main_nav :
+            case R.id.main_nav:
                 homeFragment = HomeFragment.newInstance();
-                displayFragment(homeFragment, TAG_HOME);
+                displayFragment(homeFragment, HomeFragment.TAG_HOME);
                 break;
-            case R.id.liked_nav :
-                TilesFragment likedFragment = TilesFragment.newInstance(getLiked());
-                displayFragment(likedFragment, TAG_LIKED);
+            case R.id.liked_nav:
+                likedFragment = LikedFragment.newInstance();
+                displayFragment(likedFragment, LikedFragment.TAG_LIKED);
                 break;
-            case R.id.myProfile_nav :
+            case R.id.myProfile_nav:
                 myProfileFragment = MyProfileFragment.newInstance();
-                displayFragment(myProfileFragment, TAG_MY_PROFILE);
+                displayFragment(myProfileFragment, MyProfileFragment.TAG_MY_PROFILE);
                 break;
-            case R.id.shop_nav :
+            case R.id.shop_nav:
                 break;
-            case R.id.bugReport_nav :
+            case R.id.bugReport_nav:
                 break;
         }
 
@@ -90,16 +78,13 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
     public void displayFragment(Fragment fragment, String TAG) {
         Fragment currentFragment = MainActivity.this.getSupportFragmentManager().findFragmentById(R.id.fragment_host_coordinator_layout);
 
-        if (currentFragment == null || TAG.equals(TAG_HOME)) {
+        if (currentFragment == null || TAG.equals(HomeFragment.TAG_HOME)) {
             getSupportFragmentManager().beginTransaction().addToBackStack(TAG).replace(R.id.fragment_host_coordinator_layout, fragment, TAG).commit();
             return;
-
         }
-
         if (!TAG.equals(currentFragment.getTag())) {
             getSupportFragmentManager().beginTransaction().addToBackStack(TAG).replace(R.id.fragment_host_coordinator_layout, fragment, TAG).commit();
         }
-
     }
 
     @Override
@@ -117,7 +102,13 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                getSupportFragmentManager().getBackStackEntryCount();
+                finish();
+            }
+            else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -139,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

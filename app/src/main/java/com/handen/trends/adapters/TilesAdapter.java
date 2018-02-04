@@ -290,7 +290,6 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
 
         private View.OnClickListener createTileOnClickListener(final int clickPos) {
             //Создаём onClickListener для каждой плитки, по нажатию открывается PostActivity
-
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -300,7 +299,6 @@ public class TilesAdapter extends RecyclerView.Adapter<TilesAdapter.ViewHolder> 
                     }
                 }
             };
-
         }
     }
 }

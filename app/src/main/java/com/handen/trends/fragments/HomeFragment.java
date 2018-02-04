@@ -24,11 +24,11 @@ import static com.handen.trends.ClientInterface.getSubscribedPosts;
 import static com.handen.trends.ClientInterface.getUser;
 
 public class HomeFragment extends NavigationFragment {
-    private static final String ARGS_FRAGMENTS = "fragments";
-    private static final String ARGS_TITLES = "titles";
 
     public static final int REQUEST_WRITE_POST = 10;
     public static final int RESULT_CODE_WRITTEN = 11;
+
+    public static final String TAG_HOME = "home";
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -91,13 +91,13 @@ public class HomeFragment extends NavigationFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        findView(view);
+        findViews(view);
         return view;
     }
 
     @Override
-    public void findView(View view) {
-        super.findView(view);
+    public void findViews(View view) {
+        super.findViews(view);
 
         viewPager= (ViewPager) view.findViewById(R.id.viewPager);
         pagerAdapter = new TabAdapter(fragments, titles,

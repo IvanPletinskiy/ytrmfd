@@ -10,8 +10,16 @@ import android.view.View;
 
 import com.handen.trends.R;
 
+
+
 /**
  * Created by Vanya on 26.11.2017.
+ * <p></p>
+ * Чтобы добавить новый фрагмент в NavigationDrawer, наследуем фрагмент от этого класса, копируем
+ * разметку из уже существующего, оставляем AppbarLayout and Fab, переопределяем метод findViews,
+ * находим toolbar, устанавливаем setTitle.
+ * Возможно, для наших вью делаем android:layout_marginTop="?attr/actionBarSize", иначе контент будет
+ * не вмещаться.
  */
 
 public class NavigationFragment extends android.support.v4.app.Fragment {
@@ -27,7 +35,8 @@ public class NavigationFragment extends android.support.v4.app.Fragment {
         super.onAttach(context);
         if (context instanceof OnNavigationItemClick) {
             mNavigationClickListener = (OnNavigationItemClick) context;
-        } else {
+        }
+        else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
@@ -39,8 +48,7 @@ public class NavigationFragment extends android.support.v4.app.Fragment {
         mNavigationClickListener = null;
     }
 
-    public void findView(View view) {
-
+    public void findViews(View view) {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
@@ -53,11 +61,9 @@ public class NavigationFragment extends android.support.v4.app.Fragment {
 
         navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(mNavigationClickListener);
-
     }
 
     public interface OnNavigationItemClick extends NavigationView.OnNavigationItemSelectedListener {
 
     }
-
 }

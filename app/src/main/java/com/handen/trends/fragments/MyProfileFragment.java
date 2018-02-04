@@ -25,6 +25,8 @@ import static com.handen.trends.ClientInterface.getUserPosts;
 
 public class MyProfileFragment extends NavigationFragment {
 
+    public static final String TAG_MY_PROFILE = "myProfile";
+
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -39,8 +41,6 @@ public class MyProfileFragment extends NavigationFragment {
     @SuppressWarnings("unused")
     public static MyProfileFragment newInstance() {
         MyProfileFragment fragment = new MyProfileFragment();
-      //  Bundle args = new Bundle();
-      //  fragment.setArguments(args);
         return fragment;
     }
 
@@ -48,7 +48,7 @@ public class MyProfileFragment extends NavigationFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-        findView(view);
+        findViews(view);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         user = getUser(0);
@@ -62,9 +62,7 @@ public class MyProfileFragment extends NavigationFragment {
         titles.add(getString(R.string.aboutUser));
 
         viewPager.setAdapter(new TabAdapter(fragments, titles, getActivity().getSupportFragmentManager()));
-
         tabLayout.setupWithViewPager(viewPager);
-
         return view;
     }
 
@@ -78,13 +76,13 @@ public class MyProfileFragment extends NavigationFragment {
     }
 
     @Override
-    public void findView(View view) {
-        super.findView(view);
+    public void findViews(View view) {
+        super.findViews(view);
+
         collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar_fragment_my_profile);
         collapsingToolbarLayout.setTitle(ClientInterface.getUser(currentUserId).getNickName());
 
         viewPager = (ViewPager) view.findViewById(R.id.view_pager_fragment_my_profile);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout_fragment_my_profile);
-
     }
 }
