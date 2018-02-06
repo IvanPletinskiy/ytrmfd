@@ -94,7 +94,7 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
     public void startEditionActivity(Post post) {
         Intent intent = new Intent(this, EditPostActivity.class);
         intent.putExtra(ARGS_POST, post);
-        //intent.putExtra(ARGS_TITLE, post.getTitle());
+        //intent.putExtra(ARGS_TITLE, post.getName());
         //intent.putExtra(ARGS_TEXT, post.getText());
         //intent.putExtra(ARGS_CATEGORY, post.getCategory());
         startActivityForResult(intent, posts.indexOf(post));
