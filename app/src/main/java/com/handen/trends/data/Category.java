@@ -9,9 +9,12 @@ import java.io.Serializable;
 public class Category implements Serializable{
 
     private String title;
-    private int id = 0;
 
     public Category(String title) {
         this.title = title;
+    }
+
+    public String getName() {
+        return title;
     }
 }

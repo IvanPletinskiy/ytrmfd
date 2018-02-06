@@ -19,6 +19,7 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="deleting">Удаление</string>
+    <string name="chooseCategory">Выберите категорию</string>
 
     <string name="world">Мир</string>
     <string name="subscribtions">Подписки</string>

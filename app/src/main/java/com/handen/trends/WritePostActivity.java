@@ -11,24 +11,30 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.handen.trends.adapters.CategoriesListAdapter;
 import com.handen.trends.data.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import gr.escsoft.michaelprimez.searchablespinner.SearchableSpinner;
+
+import static com.handen.trends.ClientInterface.getCategories;
 import static com.handen.trends.ClientInterface.writePost;
 import static com.handen.trends.fragments.HomeFragment.RESULT_CODE_WRITTEN;
 
 public class WritePostActivity extends AppCompatActivity {
-
     private EditText titleEditText;
     private EditText textEditText;
     private EditText tagsEditText;
-    private EditText categoryEditText;
+ //   private EditText categoryEditText;
     private Switch is24hoursSwitch;
 
-    private ImageButton backImageButton;
+    private SearchableSpinner spinner;
 
+    private Category choosenCategory;
+
+    private ImageButton backImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,11 @@ public class WritePostActivity extends AppCompatActivity {
 
         titleEditText = (EditText) findViewById(R.id.edit_text_title);
         textEditText = (EditText) findViewById(R.id.edit_text_post_text);
-        categoryEditText = (EditText) findViewById(R.id.edit_text_category);
+
+        spinner = (SearchableSpinner) findViewById(R.id.category_spinner);
+        CategoriesListAdapter adapter = new CategoriesListAdapter(getCategories());
+        spinner.setAdapter(adapter);
+
         tagsEditText = (EditText) findViewById(R.id.edit_text_tags);
         is24hoursSwitch = (Switch) findViewById(R.id.switch_is24hours);
 
@@ -66,25 +76,23 @@ public class WritePostActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_write_post);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(view -> {
 
-                String title = titleEditText.getText().toString();
-                Category category = new Category(categoryEditText.getText().toString());
-                String text = textEditText.getText().toString();
+            String title = titleEditText.getText().toString();
+            Category category = (Category) spinner.getSelectedItem();
 
-                String tagsLine = tagsEditText.getText().toString();
-                String[] tagsArray = tagsLine.split(",");
+            String text = textEditText.getText().toString();
 
-                ArrayList<String> tags = new ArrayList<String>(Arrays.asList(tagsArray));
+            String tagsLine = tagsEditText.getText().toString();
+            String[] tagsArray = tagsLine.split(",");
 
-                boolean is24hours = is24hoursSwitch.isChecked();
+            ArrayList<String> tags = new ArrayList<String>(Arrays.asList(tagsArray));
 
-                writePost(title, category, text, tags, is24hours);
-                setResult(RESULT_CODE_WRITTEN);
-                finish();
-            }
+            boolean is24hours = is24hoursSwitch.isChecked();
+
+            writePost(title, category, text, tags, is24hours);
+            setResult(RESULT_CODE_WRITTEN);
+            finish();
         });
     }
 

@@ -1,6 +1,7 @@
 package com.handen.trends;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -28,19 +29,8 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(TilesFragment.newInstance(getPosts(0)));
-        fragments.add(TilesFragment.newInstance(getSubscribedPosts()));
-        fragments.add(TilesFragment.newInstance(getPosts(2)));
 
-        ArrayList<String> titles = new ArrayList<>();
-        titles.add(getString(R.string.world));
-        titles.add(getString(R.string.subscribtions));
-        titles.add(getUser(currentUserId).getRegionTitle());
-        */
-
-        //        homeFragment = HomeFragment.newInstance(fragments, titles);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         homeFragment = HomeFragment.newInstance();
         myProfileFragment = MyProfileFragment.newInstance();
 
