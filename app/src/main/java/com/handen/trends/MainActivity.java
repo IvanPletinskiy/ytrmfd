@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
     public void startPostActivity(int clickPosition, ArrayList<Post> posts) {
         Intent intent = new Intent(MainActivity.this, PostActivity.class);
         intent.putExtra(PostActivity.ARGS_POST_POSITION, clickPosition);
-        intent.putExtra(PostActivity.ARGS_POSTS, posts);
+        intent.putParcelableArrayListExtra(PostActivity.ARGS_POSTS, posts);
         startActivity(intent);
     }
 

@@ -32,6 +32,7 @@ public class PostFragment extends Fragment {
     private TextView nicknameTextView;
     private TextView dateTextView;
     private TextView postTextTextView;
+    private TextView categoryTextView;
     private TextView likesTextView;
     private ImageView likesImageView;
     private TextView viewTextView;
@@ -76,6 +77,9 @@ public class PostFragment extends Fragment {
 
         postTextTextView = (TextView) view.findViewById(R.id.text_view_post_text);
         postTextTextView.setText(post.getText());
+
+        categoryTextView = (TextView) view.findViewById(R.id.category_text_view);
+        categoryTextView.setText(post.getCategory().getName());
 
         likesTextView = (TextView) view.findViewById(R.id.text_view_likes);
         likesTextView.setText(Long.toString(post.getLikes()));

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -58,16 +57,11 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
         mBackButton = (ImageButton) findViewById(R.id.image_button_arrow_back);
         mPostTitleTextView = (TextView) findViewById(R.id.text_view_post_title);
 
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mBackButton.setOnClickListener(v ->
+                finish());
 
         postPosition = getIntent().getIntExtra(ARGS_POST_POSITION, 0);
-        posts = (ArrayList<Post>) getIntent().getSerializableExtra(ARGS_POSTS);
-
+        posts = getIntent().getParcelableArrayListExtra(ARGS_POSTS);
 
         fragmentStatePagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -94,9 +88,6 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
     public void startEditionActivity(Post post) {
         Intent intent = new Intent(this, EditPostActivity.class);
         intent.putExtra(ARGS_POST, post);
-        //intent.putExtra(ARGS_TITLE, post.getName());
-        //intent.putExtra(ARGS_TEXT, post.getText());
-        //intent.putExtra(ARGS_CATEGORY, post.getCategory());
         startActivityForResult(intent, posts.indexOf(post));
     }
 
@@ -111,7 +102,6 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
                 posts.remove(requestCode);
                 fragmentStatePagerAdapter.notifyDataSetChanged();
                 System.out.println("DELETED");
-
                 break;
             case RESULT_CODE_EDITED:
                 fragmentStatePagerAdapter.notifyDataSetChanged();

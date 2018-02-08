@@ -51,16 +51,26 @@ public class ClientInterface {
         usersTable.add(new User(2, 0, "God", new Date()));
         usersTable.get(2).setDescription("Одмен");
 
-        for (int i = 0; i < 20; i++) {
-            int random = (int) (Math.random() * 100);
-            postsTable.add(new Post(Integer.toString(random), category, Integer.toString(random), new ArrayList<>(Arrays.asList(Integer.toString(random))), true, 24 + i, 1, random, random));
-        }
         categoriesTable = new ArrayList<>();
         categoriesTable.add(new Category("Котики"));
         categoriesTable.add(new Category("Дни рождения"));
         categoriesTable.add(new Category("Dota 2"));
         categoriesTable.add(new Category("Политика"));
         categoriesTable.add(new Category("Экономика"));
+
+        for (int i = 0; i < 20; i++) {
+            int random = (int) (Math.random() * 100);
+            postsTable.add(new Post(
+                    Integer.toString(random),
+                    categoriesTable.get((int) (Math.random() * categoriesTable.size())),
+                    Integer.toString(random),
+                    new ArrayList<>(Arrays.asList(Integer.toString(random))),
+                    true,
+                    24 + i,
+                    1,
+                    random,
+                    random));
+        }
     }
 
     static public ArrayList<Post> getPosts(int region) {

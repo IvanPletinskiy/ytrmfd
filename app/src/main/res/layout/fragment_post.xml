@@ -65,6 +65,15 @@
                 android:text="Не для кого не секрет, что у меня сегодня день рождения"
                 android:textSize="16sp"/>
 
+            <TextView
+                android:id="@+id/category_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#3b4148"
+                android:text="Обо всём"
+                android:textSize="18sp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

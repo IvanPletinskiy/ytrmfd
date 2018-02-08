@@ -51,7 +51,7 @@ public class TabAdapter extends FragmentPagerAdapter {
 /*        switch (position) {
 
 
-            //TODO replace with string resources
+
             case 0:
                 return "Мир";
             case 1:

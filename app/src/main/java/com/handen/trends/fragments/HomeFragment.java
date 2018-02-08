@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handen.trends.ClientInterface;
 import com.handen.trends.R;
 import com.handen.trends.WritePostActivity;
 import com.handen.trends.adapters.TabAdapter;
@@ -21,7 +22,6 @@ import java.util.Arrays;
 import static com.handen.trends.ClientInterface.currentUserId;
 import static com.handen.trends.ClientInterface.getPosts;
 import static com.handen.trends.ClientInterface.getSubscribedPosts;
-import static com.handen.trends.ClientInterface.getUser;
 
 public class HomeFragment extends NavigationFragment {
 
@@ -70,9 +70,8 @@ public class HomeFragment extends NavigationFragment {
         titles = new ArrayList<>(Arrays.asList(
                 getString(R.string.world),
                 getString(R.string.subscribtions),
-                getUser(currentUserId).getRegionTitle()
+                ClientInterface.getUser(currentUserId).getRegionTitle()
         ));
-
     }
 
     @Override

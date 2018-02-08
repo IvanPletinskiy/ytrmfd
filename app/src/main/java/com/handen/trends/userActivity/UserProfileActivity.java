@@ -108,7 +108,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 case 1:return "О пользователе";
                 default: return null;
             }
-
         }
     }
 

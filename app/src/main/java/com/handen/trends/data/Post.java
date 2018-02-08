@@ -147,6 +147,7 @@ public class Post implements Parcelable {
         dest.writeLong(id);
         dest.writeLong(userId);
         dest.writeString(title);
+        dest.writeSerializable(category);
         dest.writeString(text);
         dest.writeStringList(tags);
         dest.writeLong(views);
@@ -161,6 +162,7 @@ public class Post implements Parcelable {
         id = in.readLong();
         userId = in.readLong();
         title = in.readString();
+        category = (Category) in.readSerializable();
         text = in.readString();
         tags = in.createStringArrayList();
         views = in.readLong();
