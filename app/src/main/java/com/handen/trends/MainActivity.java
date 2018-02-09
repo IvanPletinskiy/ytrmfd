@@ -21,9 +21,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationFragment.OnNavigationItemClick, TilesFragment.OnTileClickListener {
 
-    private HomeFragment homeFragment;
-    private LikedFragment likedFragment;
-    private MyProfileFragment myProfileFragment;
+//    private HomeFragment homeFragment;
+//    private LikedFragment likedFragment;
+//    private MyProfileFragment myProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,11 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
         setContentView(R.layout.activity_main);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        homeFragment = HomeFragment.newInstance();
-        myProfileFragment = MyProfileFragment.newInstance();
+   //     homeFragment = HomeFragment.newInstance();
+   //     myProfileFragment = MyProfileFragment.newInstance();
 
-        displayFragment(homeFragment, HomeFragment.TAG_HOME);
+   //     displayFragment(homeFragment, HomeFragment.TAG_HOME);
+        displayFragment(HomeFragment.newInstance(), HomeFragment.TAG_HOME);
     }
 
     @SuppressWarnings ("StatementWithEmptyBody")
