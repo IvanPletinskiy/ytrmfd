@@ -14,12 +14,11 @@ import java.util.HashSet;
 /**
  * Created by Vanya on 21.10.2017.
  */
-
 public class ClientInterface {
 
     public static ArrayList<Post> postsTable;
     public static ArrayList<User> usersTable;
-    public static ArrayList<Comment> commentsTable;
+    public static ArrayList<Comment> commentsTable = new ArrayList<>();
     public static ArrayList<Category> categoriesTable;
     /**
      * Первый аргумент userId, второй postId
@@ -40,15 +39,15 @@ public class ClientInterface {
         Category category = new Category("Обо всём");
 
         usersTable = new ArrayList<>();
-        usersTable.add(new User(1, 1, "Handen", new Date()));
+        usersTable.add(new User(1, 1, "Профиль 1", new Date()));
         usersTable.get(0).setDescription("Это описание #1");
 
-        usersTable.add(new User(2, 2, "Handen2", new Date()));
+        usersTable.add(new User(2, 2, "Профиль 2", new Date()));
         usersTable.get(1).setDescription("Это описание #2");
 
-        usersTable.add(new User(3, 3, "Handen3", new Date()));
+        usersTable.add(new User(3, 3, "Профиль 2", new Date()));
         usersTable.get(2).setDescription("Это описание #3");
-        usersTable.add(new User(2, 0, "God", new Date()));
+        usersTable.add(new User(2, 0, "Профиль 0", new Date()));
         usersTable.get(2).setDescription("Одмен");
 
         categoriesTable = new ArrayList<>();
@@ -70,6 +69,10 @@ public class ClientInterface {
                     1,
                     random,
                     random));
+            for(int j = 0; j < 3; j++) {
+                int id = i * 3 + j;
+                commentsTable.add(new Comment("Это коммент №" + Integer.toString(id), new Date(), id,24 + i, j));
+            }
         }
     }
 
@@ -198,14 +201,12 @@ public class ClientInterface {
     }
 
     static public ArrayList<Comment> getComments(long postId) {
-        ArrayList<Comment> list = new ArrayList<>();
-
-        list.add(new Comment("Ха-ха. Это комментарий #1", 1));
-        list.add(new Comment("Ха-ха. Это комментарий #2", 2));
-        list.add(new Comment("Ха-ха. Это комментарий #3", 3));
-        list.add(new Comment("Ха-ха. Это комментарий #4", 4));
-        list.add(new Comment("Ха-ха. Это комментарий #5", 5));
-        return list;
+        ArrayList<Comment> ret = new ArrayList<>();
+        for(Comment comment : commentsTable) {
+            if(comment.getPostId() == postId)
+                ret.add(comment);
+        }
+        return ret;
     }
 
     static public void writeComment(long postId, Comment comment) {

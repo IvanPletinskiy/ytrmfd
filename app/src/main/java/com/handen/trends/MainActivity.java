@@ -44,16 +44,16 @@ public class MainActivity extends AppCompatActivity implements NavigationFragmen
         int id = item.getItemId();
         switch (id) {
             case R.id.main_nav:
-                homeFragment = HomeFragment.newInstance();
-                displayFragment(homeFragment, HomeFragment.TAG_HOME);
+                //homeFragment = HomeFragment.newInstance();
+                displayFragment(HomeFragment.newInstance(), HomeFragment.TAG_HOME);
                 break;
             case R.id.liked_nav:
-                likedFragment = LikedFragment.newInstance();
-                displayFragment(likedFragment, LikedFragment.TAG_LIKED);
+           //     likedFragment = LikedFragment.newInstance();
+                displayFragment(LikedFragment.newInstance(), LikedFragment.TAG_LIKED);
                 break;
             case R.id.myProfile_nav:
-                myProfileFragment = MyProfileFragment.newInstance();
-                displayFragment(myProfileFragment, MyProfileFragment.TAG_MY_PROFILE);
+          //      myProfileFragment = MyProfileFragment.newInstance();
+                displayFragment(MyProfileFragment.newInstance(), MyProfileFragment.TAG_MY_PROFILE);
                 break;
             case R.id.shop_nav:
                 break;

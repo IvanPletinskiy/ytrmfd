@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import com.handen.trends.data.Post;
 import com.handen.trends.fragments.PostFragment;
+import com.handen.trends.userActivity.UserProfileActivity;
 
 import java.util.ArrayList;
 
 import static com.handen.trends.EditPostActivity.ARGS_POST;
+import static com.handen.trends.userActivity.UserProfileActivity.ARGS_USER_ID;
 
-public class PostActivity extends AppCompatActivity implements PostFragment.SetPostTitleInterface {
+public class PostActivity extends AppCompatActivity implements PostFragment.PostFragmentListener {
     public static final String ARGS_POSTS = "posts";
     public static final String ARGS_POST_POSITION = "position";
 
@@ -89,6 +91,13 @@ public class PostActivity extends AppCompatActivity implements PostFragment.SetP
         Intent intent = new Intent(this, EditPostActivity.class);
         intent.putExtra(ARGS_POST, post);
         startActivityForResult(intent, posts.indexOf(post));
+    }
+
+    @Override
+    public void startUserProfileActivity(long userId) {
+        Intent intent = new Intent(this, UserProfileActivity.class);
+        intent.putExtra(ARGS_USER_ID, userId);
+        startActivity(intent);
     }
 
     @Override

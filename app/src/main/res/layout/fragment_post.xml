@@ -120,13 +120,14 @@
                     android:gravity="center"
                     android:text="117"
                     android:textSize="24sp"/>
-
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/commentListRecyclerView"
+                android:id="@+id/commentsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:listitem="@layout/item_comment">
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>

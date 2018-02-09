@@ -24,7 +24,7 @@ import static com.handen.trends.ClientInterface.getUserPosts;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private static final String ARGS_USER_ID = "userId";
+    public static final String ARGS_USER_ID = "userId";
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -90,7 +90,6 @@ public class UserProfileActivity extends AppCompatActivity {
                             0, userPosts.size(), getTotalLikes());
 
             }
-
             return null;
         }
 
@@ -110,5 +109,4 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         }
     }
-
 }
