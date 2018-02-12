@@ -21,6 +21,10 @@
     <string name="deleting">Удаление</string>
     <string name="chooseCategory">Выберите категорию</string>
 
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="nickname">Имя пользователя</string>
+
     <string name="world">Мир</string>
     <string name="subscribtions">Подписки</string>
     <string name="trends">Тренды</string>
