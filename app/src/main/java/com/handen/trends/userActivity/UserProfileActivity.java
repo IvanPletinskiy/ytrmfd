@@ -34,6 +34,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private ArrayList<Post> userPosts = new ArrayList<>();
     private User user;
 
+    private ArrayList<String> pageTitles = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 R.id.collapsing_toolbar_activity_user_profile);
         collapsingToolbarLayout.setTitle(user.getNickName());
 
+        pageTitles.add(getResources().getString(R.string.trends));
+        pageTitles.add(getResources().getString(R.string.aboutUser));
     }
 
     private long getTotalLikes() {
@@ -101,12 +105,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position){
-                //TODO 12.11.2017 replace with string resources
-                case 0:return "Тренды";
-                case 1:return "О пользователе";
-                default: return null;
-            }
+           pageTitles.get(position);
         }
     }
 }

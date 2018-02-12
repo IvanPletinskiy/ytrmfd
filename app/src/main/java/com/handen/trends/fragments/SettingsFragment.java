@@ -17,10 +17,8 @@ public class SettingsFragment extends Fragment {
     private EditText nicknameEditText;
 
     public SettingsFragment() {
-        // Required empty public constructor
+
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,7 +27,6 @@ public class SettingsFragment extends Fragment {
         emailEditText = (EditText) view.findViewById(R.id.email_edit_text);
         passwordEditText = (EditText) view.findViewById(R.id.password_edit_text);
         nicknameEditText = (EditText) view.findViewById(R.id.nickname_edit_text);
-        // Inflate the layout for this fragment
 
         return view;
     }
